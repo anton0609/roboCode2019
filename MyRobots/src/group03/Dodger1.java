@@ -13,6 +13,7 @@ public class Dodger1 extends AdvancedRobot {
 	  }
 	  public void onScannedRobot(
 	    ScannedRobotEvent e) {
+		  
 	      // Stay at right angles to the opponent
 	      setTurnRight(e.getBearing()+90-
 	         30*movementDirection);
