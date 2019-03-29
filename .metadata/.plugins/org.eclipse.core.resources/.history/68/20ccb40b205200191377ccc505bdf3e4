@@ -1,0 +1,7 @@
+package group03;
+
+import robocode.Robot;
+
+public class DaggeV1 extends Robot {
+
+}

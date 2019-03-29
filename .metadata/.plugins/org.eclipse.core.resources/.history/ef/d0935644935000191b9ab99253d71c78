@@ -1,0 +1,23 @@
+package group03;
+
+import robocode.HitWallEvent;
+import robocode.Robot;
+import robocode.ScannedRobotEvent;
+
+public class MyFirstRobot extends Robot {
+	public void run() {
+        while (true) {
+            ahead(300);
+            turnGunRight(360);
+
+        }
+    }
+	
+	public void onScannedRobot(ScannedRobotEvent e) {
+		fire(3);
+	}
+	
+ 	public void onHitWall(HitWallEvent e) {
+ 			turnLeft((180 - e.getBearing()));
+ 	}
+}
