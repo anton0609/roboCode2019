@@ -12,7 +12,7 @@ import robocode.ScannedRobotEvent;
  * A class to help with the management of enemies.
  */
 public class EnemyTracker {
-	
+			
 	
 }
 

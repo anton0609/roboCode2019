@@ -21,14 +21,12 @@ public class DaggeV1 extends TeamRobot {
 		 * run:  Tracker's main run function
 		 */
 		public void run() {
-			String test = "Test";
 			setAdjustRadarForRobotTurn(true);//keep the radar still while we turn
 			setBodyColor(new Color(153, 0, 0));
 			setGunColor(new Color(51, 51, 51));
 			setRadarColor(new Color(255, 0, 0));
 			setScanColor(Color.blue);
 			setBulletColor(Color.red);
-			setAdjustGunForRobotTurn(true); // Keep the gun still when we turn
 			turnRadarRightRadians(Double.POSITIVE_INFINITY);//keep turning radar right
 			
 		}
@@ -45,6 +43,9 @@ public class DaggeV1 extends TeamRobot {
 			double latVel=e.getVelocity() * Math.sin(e.getHeadingRadians() -absBearing);//enemies later velocity
 			double gunTurnAmt;//amount to turn our gun
 			setTurnRadarLeftRadians(getRadarTurnRemainingRadians());//lock on the radar
+			
+			
+			
 			if(Math.random()>.9){
 				setMaxVelocity((12*Math.random())+24);//randomly change speed
 			}
