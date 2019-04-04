@@ -19,6 +19,7 @@ public class DaggeV1 extends TeamRobot {
 		 * run:  Tracker's main run function
 		 */
 		public void run() {
+			String test = "Test";
 			setAdjustRadarForRobotTurn(true);//keep the radar still while we turn
 			setBodyColor(new Color(153, 0, 0));
 			setGunColor(new Color(51, 51, 51));
