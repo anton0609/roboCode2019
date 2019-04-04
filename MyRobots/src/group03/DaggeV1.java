@@ -45,27 +45,28 @@ public class DaggeV1 extends TeamRobot {
 			double gunTurnAmt;//amount to turn our gun
 			setTurnRadarLeftRadians(getRadarTurnRemainingRadians());//lock on the radar
 			if(Math.random()>.9){
-				setMaxVelocity((12*Math.random())+12);//randomly change speed
+				setMaxVelocity((12*Math.random())+24);//randomly change speed
 			}
 			
 				
-			if (e.getDistance() > 150) {//if distance is greater than 150
-				gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/13);//amount to turn our gun, lead just a little bit
+			if (e.getDistance() > 150) { //if distance is greater than 150
+				gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/13); //amount to turn our gun, lead just a little bit
 				setTurnGunRightRadians(gunTurnAmt); //turn our gun
-				setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity()));//drive towards the enemies predicted future location
-				setAhead((e.getDistance() - 140)*moveDirection);//move forward
-				setFire(Math.min(Math.min(getEnergy()/10, 400/e.getDistance()), e.getEnergy()/4));//fire
+				setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(absBearing-getHeadingRadians()+latVel/getVelocity())); //drive towards the enemies predicted future location
+				setAhead((e.getDistance() - 140)*moveDirection); //move forward
+				setFire(Math.min(Math.min(getEnergy()/10, 400/e.getDistance()), e.getEnergy()/4)); //fire
 			}
-			else{//if we are close enough...
+			else{   //if we are close enough...
 				gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/8);//amount to turn our gun, lead just a little bit
 				setTurnGunRightRadians(gunTurnAmt);//turn our gun
 				setTurnLeft(-90-e.getBearing()); //turn perpendicular to the enemy
 				
+				/*
 				if(prevEnergy != 0 && ((prevEnergy-e.getEnergy()) > 0 && (prevEnergy - e.getEnergy()) <=3 )) { //Dodge mechanic
 					moveDirection=-moveDirection;
 					setAhead((e.getDistance()/4+25)*moveDirection);
 				}
-				 
+				*/
 				prevEnergy=e.getEnergy();
 				setAhead(Math.max((e.getDistance() - 140), 20)*moveDirection);//move forward
 				setFire(Math.min(Math.min(getEnergy()/10, 3), e.getEnergy()/4));//fire
@@ -74,7 +75,7 @@ public class DaggeV1 extends TeamRobot {
 		
 	 
 		public void onHitWall(HitWallEvent e){
-			moveDirection=-moveDirection;//reverse direction upon hitting a wall
+			moveDirection=-moveDirection; //reverse direction upon hitting a wall
 		}
 		
 		public void onHitRobot(HitRobotEvent e) { // Avoid collision
