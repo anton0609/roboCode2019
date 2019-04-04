@@ -3,7 +3,7 @@ package group03;
 import robocode.AdvancedRobot;
 import robocode.ScannedRobotEvent;
 
-
+//TESTINGOSCAR
 public class Dodger1 extends AdvancedRobot {
 	double previousEnergy = 100;
 	  int movementDirection = 1;
