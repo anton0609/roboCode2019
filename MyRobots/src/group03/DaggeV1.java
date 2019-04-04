@@ -60,12 +60,12 @@ public class DaggeV1 extends TeamRobot {
 				gunTurnAmt = robocode.util.Utils.normalRelativeAngle(absBearing- getGunHeadingRadians()+latVel/8);//amount to turn our gun, lead just a little bit
 				setTurnGunRightRadians(gunTurnAmt);//turn our gun
 				setTurnLeft(-90-e.getBearing()); //turn perpendicular to the enemy
-				/*
+				
 				if(prevEnergy != 0 && ((prevEnergy-e.getEnergy()) > 0 && (prevEnergy - e.getEnergy()) <=3 )) { //Dodge mechanic
 					moveDirection=-moveDirection;
 					setAhead((e.getDistance()/4+25)*moveDirection);
 				}
-				 */
+				 
 				prevEnergy=e.getEnergy();
 				setAhead(Math.max((e.getDistance() - 140), 20)*moveDirection);//move forward
 				setFire(Math.min(Math.min(getEnergy()/10, 3), e.getEnergy()/4));//fire
