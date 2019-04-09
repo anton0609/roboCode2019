@@ -1,4 +1,4 @@
-package group03;
+package group03_extra;
 
 import robocode.HitWallEvent;
 import robocode.Robot;
