@@ -11,21 +11,18 @@ import robocode.WinEvent;
 
 public class DaggeV2 extends TeamRobot {
 
-	TargetingSystem targetingSystem = new TargetingSystem(this);
-	double absBearing;
-	double latVel;
-	MovementSystem movementSystem = new MovementSystem(this);
-
+	private TargetingSystem targetingSystem = new TargetingSystem(this);
+	private MovementSystem movementSystem = new MovementSystem(this);
 	public void run() {
 
 		setAdjustRadarForRobotTurn(true); // Gör radar självständig
 		setAdjustGunForRobotTurn(true); // Gör kanonen självständig
 		// Ska kommenteras bort om boten används med teambot
-		setBodyColor(new Color(153, 0, 0));
-		setGunColor(new Color(51, 51, 51));
-		setRadarColor(new Color(255, 0, 0));
-		setScanColor(Color.blue);
-		setBulletColor(Color.red);
+//		setBodyColor(new Color(153, 0, 0));
+//		setGunColor(new Color(51, 51, 51));
+//		setRadarColor(new Color(255, 0, 0));
+//		setScanColor(Color.blue);
+//		setBulletColor(Color.red);
 
 		turnRadarRightRadians(Double.POSITIVE_INFINITY); // Scanna kontinuerligt
 	}
@@ -53,7 +50,7 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	public void onWin(WinEvent e) { // Dansa vid vinst
-		movementSystem.win(e);
+		movementSystem.win(e);	
 	}
 
 	public void onMessageReceived(MessageEvent e) {
