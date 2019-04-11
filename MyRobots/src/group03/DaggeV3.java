@@ -5,6 +5,7 @@ import java.awt.Color;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.MessageEvent;
+import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
@@ -34,21 +35,27 @@ public class DaggeV3 extends TeamRobot {
 
 		while (true) {
 			movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
-			targetingSystem.track(e);
 			movementSystem.move();
-			targetingSystem.fire(e);
 		}
 
 	}
 
 	/**
-	 * Dagge tries to the scanned robot to the enemyTracker
+	 * Dagge tries to add the scanned robot to the enemyTracker and then proceeds to aim and fire
 	 * @param e
 	 *            - the ScannedRobotEvent
 	 */
 
 	public void onScannedRobot(ScannedRobotEvent e) {
 		enemyTracker.addEnemy(e);
+		targetingSystem.track(e);
+		targetingSystem.fire(e);
+	}
+	/**
+	 * Removes the killed robot from the list of enemys
+	 */
+	public void onRobotDeath(RobotDeathEvent e) {
+		enemyTracker.removeEnemy(e.getName());
 	}
 
 	/**

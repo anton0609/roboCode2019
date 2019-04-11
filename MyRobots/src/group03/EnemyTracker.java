@@ -25,6 +25,8 @@ SOFTWARE.
 package group03;
 
 import java.awt.geom.Point2D;
+
+import robocode.Robot;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 
@@ -38,8 +40,8 @@ public class EnemyTracker {
 	private String[] enemyNames;
 	private int enemyCount;
 	private TeamRobot robot;
+	private Robot[] enemyRobots;
 
-		
 	/**
 	 * Construct an object to help with the management of enemies.
 	 * @param robot the robot we are working on.

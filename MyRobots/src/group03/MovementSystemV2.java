@@ -88,7 +88,7 @@ public class MovementSystemV2 {
 		Point2D.Double robotPosition = new Point2D.Double(robot.getX(), robot.getY());
 		for (int i = 0; i < enemyTracker.getEnemyCount(); i++) {
 			Point2D.Double enemyPosition = enemyTracker.getEnemyPositions()[i];
-			computeForce(robotPosition, enemyPosition);
+			if()
 		}
 
 		Wall closestWall = positioningSystem.checkCloseToWall(robotPosition, 40);
