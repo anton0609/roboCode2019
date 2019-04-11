@@ -9,22 +9,27 @@ import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
 import robocode.util.Utils;
-
+//TODO implementera ett gravitationsmovement så att vi håller oss undan väggarna
+//TODO implementera ett bättra oscillerande mönster då vi rör oss mot fiendern
 public class MovementSystem {
+	private PositioningSystem positioningSystem;
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
 	private double moveDirection = 1; // Used to provide the ability to easily invert move direction.
 	private double prevEnergy; 		  // Used to keep track of targets energy level.
-
+	
+	
 	/**
 	 * Constructor - links operating robot to this MovementSystem
 	 * 
 	 * @param dagge - The operating robot
+	 * @param positioningSystem - the positioningSystem
 	 */
 
-	public MovementSystem(TeamRobot dagge) {
+	public MovementSystem(TeamRobot dagge, PositioningSystem positioningSystem) {
 		this.dagge = dagge;
+		this.positioningSystem = positioningSystem;
 	}
 
 	/**

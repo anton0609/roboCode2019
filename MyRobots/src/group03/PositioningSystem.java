@@ -34,7 +34,6 @@ public class PositioningSystem {
 	private double height;
 	public enum Wall {TOP, LEFT, RIGHT, BOTTOM};
 	
-	// ETSA02 Lab2: Add attributes according to the provided UML class diagram.
 	
 	/**
 	 * Construct an object to help with battle field related calculations.

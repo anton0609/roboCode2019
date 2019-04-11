@@ -10,6 +10,7 @@ import robocode.TeamRobot;
 public class TargetingSystem {
 
 	private TeamRobot dagge;
+	private String currentTargetName;
 	private double absBearing; // Short for absolute bearing.
 	private double latVel;     // Short for later velocity
 
