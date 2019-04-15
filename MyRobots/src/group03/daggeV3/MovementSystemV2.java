@@ -22,10 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package group03;
+package group03.daggeV3;
 
 import java.awt.geom.Point2D;
 
+import group03.EnemyTracker;
+import group03.MathUtils;
+import group03.PositioningSystem;
 import robocode.TeamRobot;
 import robocode.util.Utils;
 import se.lth.cs.etsa02.basicmeleebot.PositioningSystem.Wall;

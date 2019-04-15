@@ -1,8 +1,9 @@
 
-package group03;
+package group03.daggeV2;
 
 import java.awt.geom.Point2D;
 
+import group03.PositioningSystem;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
