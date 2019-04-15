@@ -1,20 +1,25 @@
-package group03;
+package group03.daggeV3;
 
 import java.awt.Color;
 
+import group03.EnemyTracker;
+import group03.PositioningSystem;
+import group03.RobotColors;
+import group03.daggeV2.TargetingSystem;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.MessageEvent;
+import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
 
-public class DaggeV2 extends TeamRobot {
+public class DaggeV3 extends TeamRobot {
 
 	private TargetingSystem targetingSystem;
-	private MovementSystem movementSystem;
+	private MovementSystemV2 movementSystem;
 	private PositioningSystem positioningSystem;
-	private EnemyTracker enemyTracker; 
+	private EnemyTracker enemyTracker;
 
 	/**
 	 * Specifies basic configurations for DaggeV2 during the game.
@@ -23,40 +28,46 @@ public class DaggeV2 extends TeamRobot {
 	 */
 
 	public void run() {
+		enemyTracker = new EnemyTracker(this);
 		targetingSystem = new TargetingSystem(this);
 		positioningSystem = new PositioningSystem(this.getBattleFieldWidth(), this.getBattleFieldHeight());
-		movementSystem = new MovementSystem(this, positioningSystem);
-		
+		movementSystem = new MovementSystemV2(this, enemyTracker, positioningSystem);
+
 		setAdjustRadarForRobotTurn(true);
 		setAdjustGunForRobotTurn(true);
 		turnRadarRightRadians(Double.POSITIVE_INFINITY);
-		
+
+		while (true) {
+			movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
+			movementSystem.move();
+		}
+
 	}
-	
 
 	/**
-	 * Calls upon the set of actions involved with tracking, targeting, moving and
-	 * shooting.
-	 * 
-	 * Makes sure DaggeV2 lock onto a target, then moves into optimal distance, then
-	 * circle strafes around its target while firing continuously with adaptive
-	 * power. Also involves countermeasures for predicted incoming fire.
-	 * 
-	 * @param e - the ScannedRobotEvent
+	 * Dagge tries to add the scanned robot to the enemyTracker and then proceeds to aim and fire
+	 * @param e
+	 *            - the ScannedRobotEvent
 	 */
 
 	public void onScannedRobot(ScannedRobotEvent e) {
-		movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
+		enemyTracker.addEnemy(e);
 		targetingSystem.track(e);
-		movementSystem.move(e);
 		targetingSystem.fire(e);
+	}
+	/**
+	 * Removes the killed robot from the list of enemys
+	 */
+	public void onRobotDeath(RobotDeathEvent e) {
+		enemyTracker.removeEnemy(e.getName());
 	}
 
 	/**
 	 * Specifies the actions to be made when collision with a wall occurs. Makes
 	 * sure DaggeV2 turns around and moves away from wall.
 	 * 
-	 * @param e - the HitWallEvent
+	 * @param e
+	 *            - the HitWallEvent
 	 */
 
 	public void onHitWall(HitWallEvent e) {
@@ -64,10 +75,11 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies the actions to be made when collision with another robot occurs.
-	 * Makes sure DaggeV2 moves out of melee range.
+	 * Specifies the actions to be made when collision with another robot
+	 * occurs. Makes sure DaggeV2 moves out of melee range.
 	 * 
-	 * @param e - the HitRobotEvent
+	 * @param e
+	 *            - the HitRobotEvent
 	 */
 
 	public void onHitRobot(HitRobotEvent e) {
@@ -77,7 +89,8 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Specifies what celebration DaggeV2 does when he wins. Makes a neat dance.
 	 * 
-	 * @param e - the WinEvent
+	 * @param e
+	 *            - the WinEvent
 	 */
 
 	public void onWin(WinEvent e) {
@@ -87,7 +100,8 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Specifies how DaggeV2 receives colouring specification from a Leader.
 	 * 
-	 * @param e - the MessageEvent
+	 * @param e
+	 *            - the MessageEvent
 	 */
 
 	public void onMessageReceived(MessageEvent e) {
