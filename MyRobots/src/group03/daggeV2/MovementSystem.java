@@ -71,15 +71,10 @@ public class MovementSystem {
 		} else {
 			if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 200) {
 				moveDirection = -moveDirection;
-				dagge.setTurnLeft(-90 - e.getBearing());
-				dagge.setAhead((e.getDistance()/4+25)*moveDirection);
 			}
-
 			dagge.setTurnLeft(-90 - e.getBearing());
 			dagge.setAhead(Math.max((e.getDistance() - 140), 20) * (moveDirection / Math.abs(moveDirection)));
-
 		}
-		// moveDirection++;
 		prevEnergy = e.getEnergy();
 
 	}
