@@ -62,21 +62,24 @@ public class MovementSystem {
 			dagge.setMaxVelocity((12 * Math.random()) + 24);
 		}
 
-		if (e.getDistance() > 150) {
+		if (e.getDistance() > 300) {
+			moveDirection = 1;
 			dagge.setTurnRightRadians(robocode.util.Utils
 					.normalRelativeAngle(absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
 			dagge.setAhead((e.getDistance() - 140) * (moveDirection / Math.abs(moveDirection)));
 
 		} else {
-			if (prevEnergy - e.getEnergy() >= 3) {
-				moveDirection = -4;
+			if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 200) {
+				moveDirection = -moveDirection;
+				dagge.setTurnLeft(-90 - e.getBearing());
+				dagge.setAhead((e.getDistance()/4+25)*moveDirection);
 			}
 
 			dagge.setTurnLeft(-90 - e.getBearing());
 			dagge.setAhead(Math.max((e.getDistance() - 140), 20) * (moveDirection / Math.abs(moveDirection)));
 
 		}
-		moveDirection++;
+		// moveDirection++;
 		prevEnergy = e.getEnergy();
 
 	}
@@ -89,7 +92,7 @@ public class MovementSystem {
 	 */
 
 	public void collision(HitRobotEvent e) { // Avoid collision
-		moveDirection = -6;
+		moveDirection = -moveDirection;
 	}
 
 	/**
@@ -100,7 +103,7 @@ public class MovementSystem {
 	 */
 
 	public void wallHit(HitWallEvent e) { // Avoid walls
-		moveDirection = -8;
+		moveDirection = -moveDirection;
 
 	}
 
