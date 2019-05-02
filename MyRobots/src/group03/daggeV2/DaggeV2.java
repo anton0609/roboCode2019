@@ -50,7 +50,7 @@ public class DaggeV2 extends TeamRobot {
 		movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
 		targetingSystem.track(e);
 		movementSystem.move(e);
-		//targetingSystem.fire(e);
+		targetingSystem.fire(e);
 	}
 
 	/**

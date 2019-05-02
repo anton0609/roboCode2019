@@ -4,7 +4,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,18 +19,16 @@ import robocode.control.snapshot.IRobotSnapshot;
 import robocode.control.testing.RobotTestBed;
 
 @RunWith(JUnit4.class)
-public class DodgeBullets_STS extends RobotTestBed {
+public class GoodAim_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
-	private String ROBOT_UNDER_TEST = "group03.daggeV2.DaggeV2Team";
-	private String ENEMY_ROBOTS = "sample.TestTeam";
+	private String ROBOT_UNDER_TEST = "group03.daggeV2.DaggeV2";
+	private String ENEMY_ROBOTS = "sample.Walls, sample.MyFirstRobot, sample.Crazy";
 	private int NBR_ROUNDS = 100;
 	private int nbrBullets = 0;
 	private int bulletHits = 0;
 	private Map<Integer, BulletState> bulletIDs = new HashMap<Integer, BulletState>();
-	private double THRESHOLD = 0;
-	private IBulletSnapshot[] tempBullets;
-	private Set<IBulletSnapshot> bullets = new HashSet<IBulletSnapshot>();
+	private double THRESHOLD = 80;
 
 	/**
 	 * The names of the robots that want battling is specified.
@@ -123,14 +120,13 @@ public class DodgeBullets_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
-		Iterator<IBulletSnapshot> itr = bullets.iterator();
-		for (Map.Entry<Integer, BulletState> entry : bulletIDs.entrySet()) {
-			if (entry.getValue().name().equals("HIT_VICTIM") && (itr.next().getVictimIndex() <= 0 && itr.next().getVictimIndex() <= 4 )) {
+		for (Map. Entry<Integer, BulletState> entry : bulletIDs. entrySet()) {
+			if (entry.getValue().name().equals("HIT_VICTIM")) {
 				bulletHits++;
 			}
 		}
-		assertTrue("Not good enough avoidance of bullets " + 100 * bulletHits / nbrBullets + "% " + nbrBullets + " "
-				+ bulletHits, 100 * bulletHits / nbrBullets < THRESHOLD);
+		assertTrue("Not good enough aim" + 100 * bulletHits / nbrBullets + "% " + nbrBullets + " "
+				+ bulletHits, 100 * bulletHits / nbrBullets > THRESHOLD);
 	}
 
 	/**
@@ -161,10 +157,11 @@ public class DodgeBullets_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
-		tempBullets = event.getTurnSnapshot().getBullets();
-		for (IBulletSnapshot b : tempBullets) {
+		IBulletSnapshot[] bullets = event.getTurnSnapshot().getBullets();
+		for (IBulletSnapshot b : bullets) {
+			if (b.getOwnerIndex() == 0) {
 				bulletIDs.put(b.getBulletId(), b.getState());
-				bullets.add(b);
+			}
 		}
 		nbrBullets = bulletIDs.size();
 	}

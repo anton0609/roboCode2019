@@ -32,7 +32,7 @@ public class TargetingSystem {
 	 */
 
 	public void track(ScannedRobotEvent e) {
-
+		
 		if (dagge.isTeammate(e.getName())) {
 			return;
 		}
@@ -61,9 +61,11 @@ public class TargetingSystem {
 	 */
 
 	public void fire(ScannedRobotEvent e) {
-
-		if (e.getDistance() > 150) {
-			dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 400 / e.getDistance()), e.getEnergy() / 4));
+		if (dagge.isTeammate(e.getName())) {
+			return;
+		}
+		if (e.getDistance() > 300) {
+			//dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 400 / e.getDistance()), e.getEnergy() / 4));
 		} else {
 			dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 3), e.getEnergy() / 4));
 		}
