@@ -2,6 +2,8 @@
 package group03.daggeV2;
 
 import java.awt.geom.Point2D;
+import java.util.HashSet;
+import java.util.Set;
 
 import robocode.util.Utils;
 import robocode.ScannedRobotEvent;
@@ -10,10 +12,11 @@ import robocode.TeamRobot;
 public class TargetingSystem {
 
 	private TeamRobot dagge;
-	private String currentTargetName;
 	private double absBearing; // Short for absolute bearing.
-	private double latVel;     // Short for later velocity
-
+	private double latVel;	// Short for later velocity
+	private String currentTarget;
+	private Set<String> targets = new HashSet<String>();
+	
 	/**
 	 * Constructor - links operating robot to this TargetingSystem
 	 * 
@@ -32,11 +35,18 @@ public class TargetingSystem {
 	 */
 
 	public void track(ScannedRobotEvent e) {
-		
+		/*if (!dagge.isTeammate(e.getName())) {
+			targets.add(e.getName());
+		}
+		if(e.getName().equals(currentTarget)) {
+			
+		}
+*/		
 		if (dagge.isTeammate(e.getName())) {
+			dagge.setTurnRadarLeftRadians(Double.POSITIVE_INFINITY);
 			return;
 		}
-
+		
 		absBearing = e.getBearingRadians() + dagge.getHeadingRadians();
 		latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);
 		double gunTurnAmt;

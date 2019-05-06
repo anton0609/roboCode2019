@@ -17,6 +17,7 @@ public class MovementSystem {
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
+	private boolean stuck = false;
 	private double moveDirection = 1; // Used to provide the ability to easily invert move direction.
 	private double prevEnergy; 		  // Used to keep track of targets energy level.
 	
@@ -58,25 +59,28 @@ public class MovementSystem {
 
 	public void move(ScannedRobotEvent e) {
 
-		if (Math.random() > .9) {
-			dagge.setMaxVelocity((12 * Math.random()) + 24);
+		if (Math.random() > .8) {
+			dagge.setMaxVelocity((12 * Math.random()) + 36);
 		}
 
-		if (e.getDistance() > 300) {
+		if (e.getDistance() > 220) {
+			if(!stuck) {
 			moveDirection = 1;
+			}
 			dagge.setTurnRightRadians(robocode.util.Utils
 					.normalRelativeAngle(absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
 			dagge.setAhead((e.getDistance() - 140) * (moveDirection / Math.abs(moveDirection)));
-
+			stuck = false;
 		} else {
 			if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 200) {
 				moveDirection = -moveDirection;
 			}
 			dagge.setTurnLeft(-90 - e.getBearing());
 			dagge.setAhead(Math.max((e.getDistance() - 140), 20) * (moveDirection / Math.abs(moveDirection)));
+			stuck = false;
 		}
 		prevEnergy = e.getEnergy();
-
+		stuck = false;
 	}
 
 	/**
@@ -88,6 +92,7 @@ public class MovementSystem {
 
 	public void collision(HitRobotEvent e) { // Avoid collision
 		moveDirection = -moveDirection;
+		stuck = true;
 	}
 
 	/**
@@ -99,7 +104,7 @@ public class MovementSystem {
 
 	public void wallHit(HitWallEvent e) { // Avoid walls
 		moveDirection = -moveDirection;
-
+		stuck = true;
 	}
 
 	/**

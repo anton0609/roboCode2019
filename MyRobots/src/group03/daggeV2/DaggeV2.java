@@ -7,6 +7,7 @@ import group03.RobotColors;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.MessageEvent;
+import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
@@ -16,6 +17,7 @@ public class DaggeV2 extends TeamRobot {
 	private TargetingSystem targetingSystem;
 	private MovementSystem movementSystem;
 	private PositioningSystem positioningSystem;
+	private ScanSystem scanSystem;
 
 	/**
 	 * Specifies basic configurations for DaggeV2 during the game.
@@ -27,7 +29,7 @@ public class DaggeV2 extends TeamRobot {
 		targetingSystem = new TargetingSystem(this);
 		positioningSystem = new PositioningSystem(this.getBattleFieldWidth(), this.getBattleFieldHeight());
 		movementSystem = new MovementSystem(this, positioningSystem);
-		
+		scanSystem = new ScanSystem(this);
 		setAdjustRadarForRobotTurn(true);
 		setAdjustGunForRobotTurn(true);
 		turnRadarRightRadians(Double.POSITIVE_INFINITY);
@@ -45,12 +47,19 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the ScannedRobotEvent
 	 */
-
+	/*public void onRobotDeath(RobotDeathEvent e) {
+		if(e.getName().equals(scanSystem.getCurrentTarget())) {
+			
+		}
+	}
+	*/
 	public void onScannedRobot(ScannedRobotEvent e) {
+		if(scanSystem.Scan(e)) {
 		movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
 		targetingSystem.track(e);
 		movementSystem.move(e);
 		targetingSystem.fire(e);
+		}
 	}
 
 	/**
@@ -101,5 +110,16 @@ public class DaggeV2 extends TeamRobot {
 			setBulletColor(c.bulletColor);
 		}
 	}
-
+	
+	/**
+	 * Allows DaggeV2 to change target after making a kill.
+	 * 
+	 * @param e - the RobotDeathEvent
+	 */
+	
+	public void onRobotDeath(RobotDeathEvent e) {
+		if(e.getName().equals(scanSystem.getCurrentTaret())) {
+			scanSystem.reset();
+		}
+	}
 }
