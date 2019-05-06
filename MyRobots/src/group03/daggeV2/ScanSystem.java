@@ -33,18 +33,7 @@ public class ScanSystem {
 	 */
 
 	public boolean Scan(ScannedRobotEvent e) {
-		/*Point2D.Double currentPos = new Point2D.Double(dagge.getX(), dagge.getY());
-		if (currentPos.getX() == prevPos.getX() && currentPos.getY() == prevPos.getY()) {
-			count++;
-		}
-		if(count >= 5) {
-			for (Entry<String, Double> entry : targets.entrySet()) {
-				targets.remove(entry.getKey());
-				currentTarget 
-			}
-		}
-		count = 0;
-		*/
+		
 		if(currentTarget == null) {
 		currentTarget = e.getName();
 		}

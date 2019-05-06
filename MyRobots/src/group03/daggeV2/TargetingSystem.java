@@ -35,13 +35,7 @@ public class TargetingSystem {
 	 */
 
 	public void track(ScannedRobotEvent e) {
-		/*if (!dagge.isTeammate(e.getName())) {
-			targets.add(e.getName());
-		}
-		if(e.getName().equals(currentTarget)) {
-			
-		}
-*/		
+		
 		if (dagge.isTeammate(e.getName())) {
 			dagge.setTurnRadarLeftRadians(Double.POSITIVE_INFINITY);
 			return;
