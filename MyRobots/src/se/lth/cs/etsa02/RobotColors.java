@@ -1,4 +1,4 @@
-package se.lth.cs.etsa02.daggeV2;
+
 
 /**
  * Copyright (c) 2001-2017 Mathew A. Nelson and Robocode contributors
@@ -7,7 +7,7 @@ package se.lth.cs.etsa02.daggeV2;
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
  */
-package se.lth.cs.etsa02.daggeV2;
+package se.lth.cs.etsa02;
 
 import java.awt.*;
 

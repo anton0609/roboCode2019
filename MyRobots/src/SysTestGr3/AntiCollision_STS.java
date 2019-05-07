@@ -15,7 +15,7 @@ import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 public class AntiCollision_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
-		private String ROBOT_UNDER_TEST = "group03.daggeV2.DaggeV2";
+		private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2";
 		private String ENEMY_ROBOTS = "sample.Crazy";
 		private int NBR_ROUNDS = 100;
 		private int collisions = 0; // number of "collisions" as defined by being arbitrarily close to enemies or walls

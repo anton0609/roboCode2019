@@ -32,27 +32,28 @@ public class DaggeV2 extends TeamRobot {
 		setAdjustRadarForRobotTurn(true);
 		setAdjustGunForRobotTurn(true);
 		turnRadarRightRadians(Double.POSITIVE_INFINITY);
-		
-	}
-	
 
-	/** 
-	 * Calls upon the set of actions involved with tracking, targeting, moving and
-	 * shooting.
+	}
+
+	/**
+	 * Calls upon the set of actions involved with tracking, targeting, moving
+	 * and shooting.
 	 * 
-	 * Makes sure DaggeV2 lock onto a target, then moves into optimal distance, then
-	 * circle strafes around its target while firing continuously with adaptive
-	 * power. Also involves countermeasures for predicted incoming fire.
+	 * Makes sure DaggeV2 lock onto a target, then moves into optimal distance,
+	 * then circle strafes around its target while firing continuously with
+	 * adaptive power. Also involves countermeasures for predicted incoming
+	 * fire.
 	 * 
-	 * @param e - the ScannedRobotEvent
+	 * @param e
+	 *            - the ScannedRobotEvent
 	 */
-	
+
 	public void onScannedRobot(ScannedRobotEvent e) {
-		if(scanSystem.Scan(e)) {
-		movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
-		targetingSystem.track(e);
-		movementSystem.move(e);
-		targetingSystem.fire(e);
+		if (scanSystem.Scan(e)) {
+			movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
+			targetingSystem.track(e);
+			movementSystem.move(e);
+			targetingSystem.fire(e);
 		}
 	}
 
@@ -60,7 +61,8 @@ public class DaggeV2 extends TeamRobot {
 	 * Specifies the actions to be made when collision with a wall occurs. Makes
 	 * sure DaggeV2 turns around and moves away from wall.
 	 * 
-	 * @param e - the HitWallEvent
+	 * @param e
+	 *            - the HitWallEvent
 	 */
 
 	public void onHitWall(HitWallEvent e) {
@@ -68,10 +70,11 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies the actions to be made when collision with another robot occurs.
-	 * Makes sure DaggeV2 moves out of melee range.
+	 * Specifies the actions to be made when collision with another robot
+	 * occurs. Makes sure DaggeV2 moves out of melee range.
 	 * 
-	 * @param e - the HitRobotEvent
+	 * @param e
+	 *            - the HitRobotEvent
 	 */
 
 	public void onHitRobot(HitRobotEvent e) {
@@ -81,7 +84,8 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Specifies what celebration DaggeV2 does when he wins. Makes a neat dance.
 	 * 
-	 * @param e - the WinEvent
+	 * @param e
+	 *            - the WinEvent
 	 */
 
 	public void onWin(WinEvent e) {
@@ -91,7 +95,8 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Specifies how DaggeV2 receives coloring specification from a Leader.
 	 * 
-	 * @param e - the MessageEvent
+	 * @param e
+	 *            - the MessageEvent
 	 */
 
 	public void onMessageReceived(MessageEvent e) {
@@ -104,15 +109,16 @@ public class DaggeV2 extends TeamRobot {
 			setBulletColor(c.bulletColor);
 		}
 	}
-	
+
 	/**
 	 * Allows DaggeV2 to change target after making a kill.
 	 * 
-	 * @param e - the RobotDeathEvent
+	 * @param e
+	 *            - the RobotDeathEvent
 	 */
-	
+
 	public void onRobotDeath(RobotDeathEvent e) {
-		if(e.getName().equals(scanSystem.getCurrentTaret())) {
+		if (e.getName().equals(scanSystem.getCurrentTaret())) {
 			scanSystem.reset();
 		}
 	}
