@@ -126,7 +126,7 @@ public class MovementSystem {
 				
 			} else {
 				
-				dagge.setTurnRightRadians(robocode.util.Utils
+				dagge.setTurnLeftRadians(robocode.util.Utils
 						.normalRelativeAngle(absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
 				dagge.setAhead((e.getDistance() - 140) * moveDirection);
 				stuck--;
@@ -136,7 +136,7 @@ public class MovementSystem {
 			if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 100 && Math.random() > 0.7) {
 				moveDirection = -moveDirection;
 			}
-			dagge.setTurnLeft(-90 - e.getBearing());
+			dagge.setTurnLeftRadians(-Math.PI - e.getBearingRadians());
 			dagge.setAhead(Math.max((e.getDistance() - 140) / 2, 10) * moveDirection);
 			stuck--;
 		}
