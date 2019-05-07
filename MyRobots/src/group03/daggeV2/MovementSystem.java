@@ -28,9 +28,7 @@ public class MovementSystem {
 	private double down;
 	private double right;
 	private double left;
-	private Condition condition;
-	private int count;
-
+	
 	/**
 	 * Constructor - links operating robot to this MovementSystem
 	 * 
@@ -131,7 +129,7 @@ public class MovementSystem {
 					dagge.setTurnRightRadians(up * (2 * Math.PI - dagge.getHeadingRadians()));
 					dagge.setTurnLeftRadians(down * (dagge.getHeadingRadians() - Math.PI));
 				}
-				dagge.setAhead(20);
+				dagge.setAhead(20*moveDirection);
 				dagge.execute();
 				
 			} else {

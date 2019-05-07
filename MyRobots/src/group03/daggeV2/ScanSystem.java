@@ -14,7 +14,7 @@ import robocode.TeamRobot;
 public class ScanSystem {
 	
 	private TeamRobot dagge;
-	private String currentTarget = null;
+	private String currentTarget;
 
 	public ScanSystem(TeamRobot dagge) {
 		this.dagge = dagge;
