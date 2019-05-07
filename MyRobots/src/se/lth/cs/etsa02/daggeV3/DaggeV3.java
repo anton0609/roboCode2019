@@ -1,11 +1,7 @@
-package group03.daggeV3;
+package se.lth.cs.etsa02.daggeV3;
 
 import java.awt.Color;
 
-import group03.EnemyTracker;
-import group03.PositioningSystem;
-import group03.RobotColors;
-import group03.daggeV2.TargetingSystem;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.MessageEvent;
@@ -13,6 +9,10 @@ import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
+import se.lth.cs.etsa02.daggeV1.EnemyTracker;
+import se.lth.cs.etsa02.daggeV1.PositioningSystem;
+import se.lth.cs.etsa02.daggeV1.RobotColors;
+import se.lth.cs.etsa02.daggeV2.TargetingSystem;
 
 public class DaggeV3 extends TeamRobot {
 

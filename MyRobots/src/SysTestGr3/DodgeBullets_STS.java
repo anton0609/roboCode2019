@@ -17,13 +17,13 @@ import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.IBulletSnapshot;
 import robocode.control.snapshot.IRobotSnapshot;
-import robocode.control.testing.RobotTestBed;
+import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 
 @RunWith(JUnit4.class)
 public class DodgeBullets_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
-	private String ROBOT_UNDER_TEST = "group03.daggeV2.DaggeV2Team";
+	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2";
 	private String ENEMY_ROBOTS = "sample.TestTeam";
 	private int NBR_ROUNDS = 100;
 	private int nbrBullets = 0;

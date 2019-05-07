@@ -1,9 +1,5 @@
-package group03.daggeV2;
+package se.lth.cs.etsa02.daggeV2;
 
-import java.awt.Color;
-
-import group03.PositioningSystem;
-import group03.RobotColors;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.MessageEvent;
@@ -11,12 +7,12 @@ import robocode.RobotDeathEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
+import se.lth.cs.etsa02.RobotColors;
 
 public class DaggeV2 extends TeamRobot {
 
 	private TargetingSystem targetingSystem;
 	private MovementSystem movementSystem;
-	private PositioningSystem positioningSystem;
 	private ScanSystem scanSystem;
 
 	/**
@@ -33,8 +29,6 @@ public class DaggeV2 extends TeamRobot {
 		setAdjustGunForRobotTurn(true);
 
 		turnRadarRightRadians(Double.POSITIVE_INFINITY);
-			
-		
 
 	}
 

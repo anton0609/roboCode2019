@@ -1,13 +1,6 @@
-package group03.daggeV2;
+package se.lth.cs.etsa02.daggeV2;
 
-import java.awt.geom.Point2D;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
-import javafx.util.Pair;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 

@@ -1,21 +1,20 @@
 
-package group03.daggeV2;
+package se.lth.cs.etsa02.daggeV2;
 
-import java.awt.geom.Point2D;
-import robocode.Condition;
 
-import group03.PositioningSystem;
+
+
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
-import robocode.util.Utils;
+
 
 //TODO implementera ett gravitationsmovement så att vi håller oss undan väggarna
 //TODO implementera ett bättra oscillerande mönster då vi rör oss mot fiendern
 public class MovementSystem {
-	private PositioningSystem positioningSystem;
+	
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
@@ -40,12 +39,6 @@ public class MovementSystem {
 		this.dagge = dagge;
 		this.width = width;
 		this.height = height;
-		
-		/*condition = new Condition() {
-			public boolean test() {
-				return ((up == 1 && down == 1 && left == 1 && right == 1) || count >= 5);
-			}
-		};*/
 	}
 
 	/**
