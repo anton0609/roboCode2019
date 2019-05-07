@@ -1,6 +1,6 @@
 
 
-package group03;
+package se.lth.cs.etsa02.daggeV1;
 
 import java.awt.geom.Point2D;
 

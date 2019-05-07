@@ -8,7 +8,7 @@ import robocode.control.events.RoundEndedEvent;
 import robocode.control.events.RoundStartedEvent;
 import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.IRobotSnapshot;
-import robocode.control.testing.RobotTestBed;
+import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 
 
 @RunWith(JUnit4.class)

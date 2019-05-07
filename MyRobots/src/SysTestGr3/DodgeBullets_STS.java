@@ -17,7 +17,7 @@ import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.IBulletSnapshot;
 import robocode.control.snapshot.IRobotSnapshot;
-import robocode.control.testing.RobotTestBed;
+import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 
 @RunWith(JUnit4.class)
 public class DodgeBullets_STS extends RobotTestBed {

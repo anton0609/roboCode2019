@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * https://robocode.sourceforge.io/license/epl-v10.html
  */
-package robocode.control.testing;
+package se.lth.cs.etsa02.robocode.control.testing;
 
 
 import robocode.control.BattleSpecification;

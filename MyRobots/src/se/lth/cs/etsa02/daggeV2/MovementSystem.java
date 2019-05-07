@@ -1,16 +1,15 @@
 
-package group03.daggeV2;
+package se.lth.cs.etsa02.daggeV2;
 
 import java.awt.geom.Point2D;
 import robocode.Condition;
-
-import group03.PositioningSystem;
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
 import robocode.util.Utils;
+import se.lth.cs.etsa02.daggeV1.PositioningSystem;
 
 //TODO implementera ett gravitationsmovement så att vi håller oss undan väggarna
 //TODO implementera ett bättra oscillerande mönster då vi rör oss mot fiendern

@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package group03;
+package se.lth.cs.etsa02.daggeV1;
 
 import java.awt.geom.Point2D;
 
