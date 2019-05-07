@@ -25,6 +25,7 @@ public class TargetingSystem {
 
 	public TargetingSystem(TeamRobot dagge) {
 		this.dagge = dagge;
+		
 	}
 
 	/**
@@ -47,16 +48,16 @@ public class TargetingSystem {
 		dagge.setTurnRadarLeftRadians(dagge.getRadarTurnRemainingRadians());
 		if (e.getDistance() >= 300) {
 			gunTurnAmt = robocode.util.Utils
-					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 13);
+					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / (13*e.getDistance()/200));
 			dagge.setTurnGunRightRadians(gunTurnAmt);
 		} else if (e.getDistance() > 150 && e.getDistance() < 300) {
 			gunTurnAmt = robocode.util.Utils
-					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / (13*e.getDistance()/200));
+					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 13);
 			dagge.setTurnGunRightRadians(gunTurnAmt);
 
 		} else {
 			gunTurnAmt = robocode.util.Utils
-					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 8);
+					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 9);
 			dagge.setTurnGunRightRadians(gunTurnAmt);
 		}
 	}

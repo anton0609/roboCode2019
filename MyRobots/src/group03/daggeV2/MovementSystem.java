@@ -19,7 +19,7 @@ public class MovementSystem {
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
-	private boolean stuck = false;
+	private int stuck = 0;
 	private double moveDirection = 1; // Used to provide the ability to easily invert move direction.
 	private double prevEnergy; // Used to keep track of targets energy level.
 	private double width;
@@ -43,6 +43,7 @@ public class MovementSystem {
 		this.positioningSystem = positioningSystem;
 		this.width = width;
 		this.height = height;
+		
 		/*condition = new Condition() {
 			public boolean test() {
 				return ((up == 1 && down == 1 && left == 1 && right == 1) || count >= 5);
@@ -80,7 +81,7 @@ public class MovementSystem {
 		}
 
 		if (e.getDistance() > 220) {
-			if (!stuck && e.getDistance() > 270) {
+			if (stuck > 5 && e.getDistance() > 270) {
 				moveDirection = 1;
 			}
 
@@ -89,22 +90,20 @@ public class MovementSystem {
 			right = 0;
 			left = 0;
 
-			if (dagge.getY() <= 10) {
+			if (dagge.getY() <= 20) {
 				up = 1;
 			}
-			if (dagge.getY() >= height - 10) {
+			if (dagge.getY() >= height - 20) {
 				down = 1;
 			}
-			if (dagge.getX() <= 10) {
+			if (dagge.getX() <= 20) {
 				right = 1;
 			}
-			if (dagge.getX() >= width - 10) {
+			if (dagge.getX() >= width - 20) {
 				left = 1;
 			}
 			if (left == 1 || right == 1 || up == 1 || down == 1) {
-				/*dagge.stop();
-				dagge.clearAllEvents(); */
-				
+				dagge.clearAllEvents();
 				
 				if (dagge.getHeadingRadians() < Math.PI / 2) {
 					dagge.setTurnRightRadians(right * (Math.PI / 2 - dagge.getHeadingRadians()));
@@ -130,9 +129,9 @@ public class MovementSystem {
 					dagge.setTurnRightRadians(up * (2 * Math.PI - dagge.getHeadingRadians()));
 					dagge.setTurnLeftRadians(down * (dagge.getHeadingRadians() - Math.PI));
 				}
-				dagge.setAhead(100 * moveDirection);
+				dagge.setAhead(20);
 				dagge.execute();
-
+				stuck = false;
 			} else {
 				
 				dagge.setTurnRightRadians(robocode.util.Utils
@@ -141,7 +140,7 @@ public class MovementSystem {
 				stuck = false;
 			}
 		} else {
-			//count = 0;
+		
 			if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 100 && Math.random() > 0.7) {
 				moveDirection = -moveDirection;
 			}
@@ -163,7 +162,7 @@ public class MovementSystem {
 
 	public void collision(HitRobotEvent e) { // Avoid collision
 		moveDirection = -moveDirection;
-		stuck = true;
+		stuck++;
 	}
 
 	/**
@@ -175,7 +174,7 @@ public class MovementSystem {
 
 	public void wallHit(HitWallEvent e) { // Avoid walls
 		moveDirection = -moveDirection;
-		stuck = true;
+		stuck++;
 	}
 
 	/**

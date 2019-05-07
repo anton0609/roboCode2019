@@ -12,6 +12,7 @@ import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 
 public class ScanSystem {
+	
 	private TeamRobot dagge;
 	private String currentTarget = null;
 
@@ -29,13 +30,13 @@ public class ScanSystem {
 
 	public boolean Scan(ScannedRobotEvent e) {
 		
-		if(currentTarget == null) {
+		if(currentTarget == null && !dagge.isTeammate(e.getName())) {
 		currentTarget = e.getName();
 		}
 		
 		if (!e.getName().equals(currentTarget)) {
 			return false;
-		}
+		} 
 		return true;
 	}
 
