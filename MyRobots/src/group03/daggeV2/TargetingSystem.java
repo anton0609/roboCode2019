@@ -14,8 +14,8 @@ public class TargetingSystem {
 	private TeamRobot dagge;
 	private double absBearing; // Short for absolute bearing.
 	private double latVel;	// Short for later velocity
-	private String currentTarget;
-	private Set<String> targets = new HashSet<String>();
+	
+	
 	
 	/**
 	 * Constructor - links operating robot to this TargetingSystem
@@ -37,15 +37,19 @@ public class TargetingSystem {
 
 	public void track(ScannedRobotEvent e) {
 		
-		if (dagge.isTeammate(e.getName())) {
+		/*if (dagge.isTeammate(e.getName())) {
 			dagge.setTurnRadarLeftRadians(Double.POSITIVE_INFINITY);
 			return;
-		}
+		}*/
 		
 		absBearing = e.getBearingRadians() + dagge.getHeadingRadians();
+		
 		latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);
+		
 		double gunTurnAmt;
+		
 		dagge.setTurnRadarLeftRadians(dagge.getRadarTurnRemainingRadians());
+				
 		if (e.getDistance() >= 300) {
 			gunTurnAmt = robocode.util.Utils
 					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / (13*e.getDistance()/200));

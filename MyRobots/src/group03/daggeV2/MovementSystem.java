@@ -38,7 +38,6 @@ public class MovementSystem {
 
 	public MovementSystem(TeamRobot dagge, Double width, Double height) {
 		this.dagge = dagge;
-		this.positioningSystem = positioningSystem;
 		this.width = width;
 		this.height = height;
 		

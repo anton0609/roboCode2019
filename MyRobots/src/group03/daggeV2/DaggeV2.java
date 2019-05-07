@@ -31,12 +31,14 @@ public class DaggeV2 extends TeamRobot {
 		scanSystem = new ScanSystem(this);
 		setAdjustRadarForRobotTurn(true);
 		setAdjustGunForRobotTurn(true);
-		turnRadarRightRadians(Double.POSITIVE_INFINITY);
-		
-	}
-	
 
-	/** 
+		turnRadarRightRadians(Double.POSITIVE_INFINITY);
+			
+		
+
+	}
+
+	/**
 	 * Calls upon the set of actions involved with tracking, targeting, moving and
 	 * shooting.
 	 * 
@@ -46,13 +48,13 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the ScannedRobotEvent
 	 */
-	
+
 	public void onScannedRobot(ScannedRobotEvent e) {
-		if(scanSystem.Scan(e)) {
-		movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
-		targetingSystem.track(e);
-		movementSystem.move(e);
-		targetingSystem.fire(e);
+		if (scanSystem.Scan(e)) {
+			movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
+			targetingSystem.track(e);
+			movementSystem.move(e);
+			targetingSystem.fire(e);
 		}
 	}
 
@@ -104,15 +106,15 @@ public class DaggeV2 extends TeamRobot {
 			setBulletColor(c.bulletColor);
 		}
 	}
-	
+
 	/**
 	 * Allows DaggeV2 to change target after making a kill.
 	 * 
 	 * @param e - the RobotDeathEvent
 	 */
-	
+
 	public void onRobotDeath(RobotDeathEvent e) {
-		if(e.getName().equals(scanSystem.getCurrentTaret())) {
+		if (e.getName().equals(scanSystem.getCurrentTaret())) {
 			scanSystem.reset();
 		}
 	}
