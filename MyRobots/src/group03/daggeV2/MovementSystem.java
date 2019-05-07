@@ -75,13 +75,15 @@ public class MovementSystem {
 	 */
 
 	public void move(ScannedRobotEvent e) {
-
+		if (stuck < 0) {
+			stuck = 0;
+		}
 		if (Math.random() > .8) {
 			dagge.setMaxVelocity((12 * Math.random()) + 36);
 		}
 
 		if (e.getDistance() > 220) {
-			if (stuck > 5 && e.getDistance() > 270) {
+			if (stuck < 5 && e.getDistance() > 270) {
 				moveDirection = 1;
 			}
 
@@ -103,26 +105,26 @@ public class MovementSystem {
 				left = 1;
 			}
 			if (left == 1 || right == 1 || up == 1 || down == 1) {
-				dagge.clearAllEvents();
+				stuck ++;
 				
 				if (dagge.getHeadingRadians() < Math.PI / 2) {
 					dagge.setTurnRightRadians(right * (Math.PI / 2 - dagge.getHeadingRadians()));
 					dagge.setTurnLeftRadians(up * (dagge.getHeadingRadians()));
 					dagge.setTurnRightRadians(down * (Math.PI / 2 - dagge.getHeadingRadians()));
 					dagge.setTurnLeftRadians(left * (dagge.getHeadingRadians() + Math.PI / 2));
-				}
+				} else
 				if (dagge.getHeadingRadians() >= 3 * Math.PI / 2) {
 					dagge.setTurnRightRadians(right * (2 * Math.PI - dagge.getHeadingRadians() + Math.PI / 2));
 					dagge.setTurnLeftRadians(left * (Math.PI / 2 - (dagge.getHeadingRadians() - 2 * Math.PI)));
 					dagge.setTurnRightRadians(up * (2 * Math.PI - dagge.getHeadingRadians()));
 					dagge.setTurnLeftRadians(down * (dagge.getHeadingRadians() - Math.PI));
-				}
+				} else
 				if (dagge.getHeadingRadians() >= Math.PI / 2 && dagge.getHeadingRadians() < Math.PI) {
 					dagge.setTurnLeftRadians(right * (dagge.getHeadingRadians() - Math.PI / 2));
 					dagge.setTurnRightRadians(left * (Math.PI - dagge.getHeadingRadians() + Math.PI / 2));
 					dagge.setTurnLeftRadians(up * (dagge.getHeadingRadians()));
 					dagge.setTurnRightRadians(down * (Math.PI - dagge.getHeadingRadians()));
-				}
+				} else
 				if (dagge.getHeadingRadians() < 3 * Math.PI / 2 && dagge.getHeadingRadians() >= Math.PI) {
 					dagge.setTurnLeftRadians(right * (dagge.getHeadingRadians() - Math.PI / 2));
 					dagge.setTurnRightRadians(left * (Math.PI - dagge.getHeadingRadians() + Math.PI / 2));
@@ -131,13 +133,13 @@ public class MovementSystem {
 				}
 				dagge.setAhead(20);
 				dagge.execute();
-				stuck = false;
+				
 			} else {
 				
 				dagge.setTurnRightRadians(robocode.util.Utils
 						.normalRelativeAngle(absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
 				dagge.setAhead((e.getDistance() - 140) * moveDirection);
-				stuck = false;
+				stuck--;
 			}
 		} else {
 		
@@ -146,7 +148,7 @@ public class MovementSystem {
 			}
 			dagge.setTurnLeft(-90 - e.getBearing());
 			dagge.setAhead(Math.max((e.getDistance() - 140) / 2, 10) * moveDirection);
-			stuck = false;
+			stuck--;
 		}
 
 		prevEnergy = e.getEnergy();
