@@ -45,10 +45,13 @@ public class TargetingSystem {
 		latVel = e.getVelocity() * Math.sin(e.getHeadingRadians() - absBearing);
 		double gunTurnAmt;
 		dagge.setTurnRadarLeftRadians(dagge.getRadarTurnRemainingRadians());
-
-		if (e.getDistance() > 150) {
+		if (e.getDistance() >= 300) {
 			gunTurnAmt = robocode.util.Utils
 					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 13);
+			dagge.setTurnGunRightRadians(gunTurnAmt);
+		} else if (e.getDistance() > 150 && e.getDistance() < 300) {
+			gunTurnAmt = robocode.util.Utils
+					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / (13*e.getDistance()/200));
 			dagge.setTurnGunRightRadians(gunTurnAmt);
 
 		} else {
@@ -68,7 +71,10 @@ public class TargetingSystem {
 		if (dagge.isTeammate(e.getName())) {
 			return;
 		}
-		if (e.getDistance() > 300) {
+		if(e.getDistance() > 400) {
+			return;
+		}
+		if (e.getDistance() > 200) {
 			dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 400 / e.getDistance()), e.getEnergy() / 4));
 		} else {
 			dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 3), e.getEnergy() / 4));

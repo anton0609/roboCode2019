@@ -27,8 +27,7 @@ public class DaggeV2 extends TeamRobot {
 
 	public void run() {
 		targetingSystem = new TargetingSystem(this);
-		positioningSystem = new PositioningSystem(this.getBattleFieldWidth(), this.getBattleFieldHeight());
-		movementSystem = new MovementSystem(this, positioningSystem);
+		movementSystem = new MovementSystem(this, this.getBattleFieldWidth(), this.getBattleFieldHeight());
 		scanSystem = new ScanSystem(this);
 		setAdjustRadarForRobotTurn(true);
 		setAdjustGunForRobotTurn(true);
@@ -47,12 +46,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the ScannedRobotEvent
 	 */
-	/*public void onRobotDeath(RobotDeathEvent e) {
-		if(e.getName().equals(scanSystem.getCurrentTarget())) {
-			
-		}
-	}
-	*/
+	
 	public void onScannedRobot(ScannedRobotEvent e) {
 		if(scanSystem.Scan(e)) {
 		movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
@@ -95,7 +89,7 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies how DaggeV2 receives colouring specification from a Leader.
+	 * Specifies how DaggeV2 receives coloring specification from a Leader.
 	 * 
 	 * @param e - the MessageEvent
 	 */
