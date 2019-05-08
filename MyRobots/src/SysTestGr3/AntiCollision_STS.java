@@ -15,11 +15,13 @@ import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 public class AntiCollision_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
-		private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2";
+		private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
 		private String ENEMY_ROBOTS = "sample.Crazy";
 		private int NBR_ROUNDS = 100;
-		private int collisions = 0; // number of "collisions" as defined by being arbitrarily close to enemies or walls
-		
+		private double collisions = 0;// number of "collisions" as defined by being arbitrarily close to enemies or walls
+		private double turns = 0;
+		private int SIZE_X = 1200;
+		private int SIZE_Y = 1200;
 		
 		/**
 		 * The names of the robots that want battling is specified.
@@ -59,7 +61,7 @@ public class AntiCollision_STS extends RobotTestBed {
 		 */
 		@Override
 		public String getInitialPositions() {
-			return "(100,100,180), (200,100,270)";
+			return null;
 		}
 
 		/**
@@ -113,7 +115,8 @@ public class AntiCollision_STS extends RobotTestBed {
 		 */
 		@Override
 		public void onBattleCompleted(BattleCompletedEvent event) {
-			assertTrue("Not good enough avoidance of robots " + collisions, collisions < 5);
+			System.out.println(collisions/turns);
+			assertTrue("Not good enough avoidance of robots " + collisions/turns, collisions/turns < 0.03);
 		}
 		
 		/**
@@ -148,9 +151,10 @@ public class AntiCollision_STS extends RobotTestBed {
 		@Override
 		public void onTurnEnded(TurnEndedEvent event) {
 			IRobotSnapshot robot = event.getTurnSnapshot().getRobots()[0];
-			if(robot.getVelocity() == 0) {
+			if(robot.getState().isHitRobot() || robot.getState().isHitWall()) {
 				collisions++;
 			}
+			turns++;
 		}
 
 }

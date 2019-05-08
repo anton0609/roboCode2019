@@ -2,6 +2,11 @@ package SysTestGr3;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import robocode.control.events.BattleCompletedEvent;
@@ -10,22 +15,20 @@ import robocode.control.events.RoundStartedEvent;
 import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.IBulletSnapshot;
+import robocode.control.snapshot.IRobotSnapshot;
 import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 
 @RunWith(JUnit4.class)
-public class DodgeBullets_STS extends RobotTestBed {
+public class GoodAimHard_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
 	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperSample";
 	private int NBR_ROUNDS = 100;
 	private double hits = 0;
-	private double dodges = 0;
+	private double misses = 0;
 	private int SIZE_X = 1200;
 	private int SIZE_Y = 1200;
-	private IBulletSnapshot[] tempBullets;
-	
-
 	/**
 	 * The names of the robots that want battling is specified.
 	 * 
@@ -116,9 +119,8 @@ public class DodgeBullets_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
-		System.out.println("Dodged " +  100*(dodges/(dodges+hits)) +"% of bullets.");
-		assertTrue("Not good enough avoidance of bullets " + hits/(dodges+hits),
-				dodges/(dodges+hits) > 0.65);
+		assertTrue("Not good enough hitrate: " + 100 * hits / (hits + misses) + "% ", hits / (hits + misses) > 0.40);
+		System.out.println("hitrate: " + 100 * hits / (hits + misses) + "% ");
 	}
 
 	/**
@@ -149,13 +151,13 @@ public class DodgeBullets_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onTurnEnded(TurnEndedEvent event) {
-		tempBullets = event.getTurnSnapshot().getBullets();
-		for (IBulletSnapshot b : tempBullets) {
-				if(b.getOwnerIndex() == 1 && b.getVictimIndex() == 0) {
-					hits++;
-				} else if (b.getOwnerIndex() == 1 && b.getState().equals(BulletState.HIT_WALL)) {
-					dodges++;
-				}
+		IBulletSnapshot[] bullets = event.getTurnSnapshot().getBullets();
+		for (IBulletSnapshot b : bullets) {
+			if (b.getOwnerIndex() == 0 && b.getVictimIndex() == 1) {
+				hits++;
+			} else if (b.getOwnerIndex() == 0 && b.getState().equals(BulletState.HIT_WALL)) {
+				misses++;
+			}
 		}
 	}
 }
