@@ -121,22 +121,22 @@ public class MovementSystem {
 					dagge.setTurnRightRadians(up * (2 * Math.PI - dagge.getHeadingRadians()));
 					dagge.setTurnLeftRadians(down * (dagge.getHeadingRadians() - Math.PI));
 				}
-				dagge.setAhead(20*moveDirection);
+				dagge.ahead(20*moveDirection);
 				dagge.execute();
 				
 			} else {
 				
-				dagge.setTurnLeftRadians(robocode.util.Utils
+				dagge.setTurnRightRadians(robocode.util.Utils
 						.normalRelativeAngle(absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
 				dagge.setAhead((e.getDistance() - 140) * moveDirection);
 				stuck--;
 			}
 		} else {
 		
-			if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 100 && Math.random() > 0.7) {
-				moveDirection = -moveDirection;
-			}
-			dagge.setTurnLeftRadians(-Math.PI - e.getBearingRadians());
+			//if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 100 && Math.random() > 0.7) {
+			//	moveDirection = -moveDirection;
+			//}
+			dagge.turnLeft(-90 - e.getBearing());
 			dagge.setAhead(Math.max((e.getDistance() - 140) / 2, 10) * moveDirection);
 			stuck--;
 		}
