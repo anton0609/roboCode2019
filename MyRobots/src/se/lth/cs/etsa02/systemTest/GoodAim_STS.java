@@ -1,4 +1,4 @@
-package SysTestGr3;
+package se.lth.cs.etsa02.systemTest;
 
 import static org.junit.Assert.assertTrue;
 
