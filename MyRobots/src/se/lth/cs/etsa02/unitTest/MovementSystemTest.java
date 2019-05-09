@@ -6,8 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
+import robocode.WinEvent;
 import se.lth.cs.etsa02.daggeV2.MovementSystem;
 import se.lth.cs.etsa02.daggeV2.ScanSystem;
 
@@ -33,7 +35,29 @@ public class MovementSystemTest {
 	@Test
 	public void testWallHitEventHandling() {
 		movementUT.wallHit(new HitWallEvent(0));
-		
+		assertTrue("Wrong Movementdirection, exptected 1, got " + movementUT.getMoveDirection(),
+				-1 == movementUT.getMoveDirection());
+
+	}
+
+	@Test
+	public void testCollision() {
+		movementUT.collision(new HitRobotEvent(null, 0, 0, false));
+		assertTrue("Wrong Movementdirection, exptected 1, got " + movementUT.getMoveDirection(),
+				-1 == movementUT.getMoveDirection());
+	}
+
+	@Test
+	public void testGetMoveDirection() {
+		assertTrue("Wrong Movement direction", movementUT.getMoveDirection() == 1);
+	}
+
+	@Test
+	public void testGetAndSetData() {
+		movementUT.setData(10, 20);
+		Double[] data = movementUT.getData();
+		assertTrue("wrong absolute bearing data", 10 == data[0]);
+		assertTrue("wrong later velocity", 20 == data[1]);
 	}
 
 }

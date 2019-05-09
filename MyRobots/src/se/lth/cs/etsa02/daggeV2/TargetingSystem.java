@@ -32,10 +32,6 @@ public class TargetingSystem {
 
 	public void track(ScannedRobotEvent e) {
 		
-		/*if (dagge.isTeammate(e.getName())) {
-			dagge.setTurnRadarLeftRadians(Double.POSITIVE_INFINITY);
-			return;
-		}*/
 		
 		absBearing = e.getBearingRadians() + dagge.getHeadingRadians();
 		
@@ -65,20 +61,21 @@ public class TargetingSystem {
 	 * Calibrates firing power to make sure shots are more efficient.
 	 * 
 	 * @param e - The ScannedRobotEvent
+	 * @return whether or not the robot was instructed to fire;
 	 */
 
-	public void fire(ScannedRobotEvent e) {
-		if (dagge.isTeammate(e.getName())) {
-			return;
-		}
+	public boolean fire(ScannedRobotEvent e) {
 		if(e.getDistance() > 400) {
-			return;
+			return false;
 		}
 		if (e.getDistance() > 200) {
 			dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 400 / e.getDistance()), e.getEnergy() / 4));
+			return true;
 		} else {
 			dagge.setFire(Math.min(Math.min(dagge.getEnergy() / 10, 3), e.getEnergy() / 4));
+			return true;
 		}
+		
 	}
 
 	/**

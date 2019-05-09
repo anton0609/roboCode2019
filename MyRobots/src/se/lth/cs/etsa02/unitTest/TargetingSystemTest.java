@@ -13,24 +13,35 @@ public class TargetingSystemTest {
 	private TargetingSystem targetingUT;
 	private MockScannedRobotEvent mockSRE;
 	@Before
-	public void setUp() throws Exception {
-		mockBot = new MockBot("DaggeV2", 100, Math.PI, 100, 100);
+	public void setUp(){
+		mockBot = new MockBot("DaggeV2", 100, Math.PI, 0, 0);
 		targetingUT = new TargetingSystem(mockBot);
-		mockSRE = new MockScannedRobotEvent("enemy", 100, 0, 100, 0, 20, false );
+		
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		mockBot = null;
 		targetingUT = null;
 		mockSRE = null;
 	}
 
 	@Test
-	public void testAbsBearing() {
-		targetingUT.track(mockSRE);
-		double calculatedAbsBearing = mockSRE.getBearingRadians() + mockBot.getHeadingRadians();
-		assertTrue("absBearing is not correct "+ targetingUT.getAbsBearing(), calculatedAbsBearing==targetingUT.getAbsBearing() );
+	public void testFireAtEnemyFarAway() {
+		mockSRE = new MockScannedRobotEvent(null, 100, 0, 450, 0, 20, false );
+		assertTrue("Fired when the target was to far away",!targetingUT.fire(mockSRE));
 	}
+	@Test
+	public void testFireAtEnemyMidDistance() {
+		mockSRE = new MockScannedRobotEvent(null, 100, 0, 250, 0, 20, false );
+		assertTrue("Did not fire when supposed to",targetingUT.fire(mockSRE));
+	}
+	
+	@Test
+	public void testFireAtEnemyCloseDistance() {
+		mockSRE = new MockScannedRobotEvent(null, 100, 0, 100, 0, 20, false );
+		assertTrue("Did not fire when supposed to",targetingUT.fire(mockSRE));
+	}
+	
 
 }

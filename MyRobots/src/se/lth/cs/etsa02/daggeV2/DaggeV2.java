@@ -33,18 +33,16 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Calls upon the set of actions involved with tracking, targeting, moving and
+	 * Provides all systems with information about the scanned robot. Calls upon
+	 * the set of actions involved with tracking, targeting, moving and
 	 * shooting.
 	 * 
-	 * Makes sure DaggeV2 lock onto a target, then moves into optimal distance, then
-	 * circle strafes around its target while firing continuously with adaptive
-	 * power. Also involves countermeasures for predicted incoming fire.
-	 * 
-	 * @param e - the ScannedRobotEvent
+	 * @param e
+	 *            - the ScannedRobotEvent
 	 */
 	@Override
 	public void onScannedRobot(ScannedRobotEvent e) {
-		if (scanSystem.Scan(e)) {
+		if (scanSystem.scan(e)) {
 			movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
 			targetingSystem.track(e);
 			movementSystem.move(e);
@@ -53,10 +51,10 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies the actions to be made when collision with a wall occurs. Makes
-	 * sure DaggeV2 turns around and moves away from wall.
+	 * Specifies the actions to be made when collision with a wall occurs
 	 * 
-	 * @param e - the HitWallEvent
+	 * @param e
+	 *            - the HitWallEvent
 	 */
 	@Override
 	public void onHitWall(HitWallEvent e) {
@@ -64,10 +62,11 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies the actions to be made when collision with another robot occurs.
-	 * Makes sure DaggeV2 moves out of melee range.
+	 * Specifies the actions to be made when collision with another robot
+	 * occurs. Makes sure DaggeV2 move away from the robot collided with.
 	 * 
-	 * @param e - the HitRobotEvent
+	 * @param e
+	 *            - the HitRobotEvent
 	 */
 	@Override
 	public void onHitRobot(HitRobotEvent e) {
@@ -77,7 +76,8 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Specifies what celebration DaggeV2 does when he wins. Makes a neat dance.
 	 * 
-	 * @param e - the WinEvent
+	 * @param e
+	 *            - the WinEvent
 	 */
 	@Override
 	public void onWin(WinEvent e) {
@@ -87,7 +87,8 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Specifies how DaggeV2 receives coloring specification from a Leader.
 	 * 
-	 * @param e - the MessageEvent
+	 * @param e
+	 *            - the MessageEvent
 	 */
 	@Override
 	public void onMessageReceived(MessageEvent e) {
@@ -104,11 +105,12 @@ public class DaggeV2 extends TeamRobot {
 	/**
 	 * Allows DaggeV2 to change target after making a kill.
 	 * 
-	 * @param e - the RobotDeathEvent
+	 * @param e
+	 *            - the RobotDeathEvent
 	 */
 	@Override
 	public void onRobotDeath(RobotDeathEvent e) {
-		if (e.getName().equals(scanSystem.getCurrentTaret())) {
+		if (e.getName().equals(scanSystem.getCurrentTarget())) {
 			scanSystem.reset();
 		}
 	}
