@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
 import se.lth.cs.etsa02.daggeV2.MovementSystem;
 import se.lth.cs.etsa02.daggeV2.ScanSystem;
@@ -18,25 +19,21 @@ public class MovementSystemTest {
 	private ScannedRobotEvent sre;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		mockBot = new MockBot("DaggeV2", 100, Math.PI, 100, 100);
 		movementUT = new MovementSystem(mockBot, (double) 1200, (double) 1200);
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() {
 		mockBot = null;
 		movementUT = null;
 	}
 
 	@Test
-	public void testMoveTowardsEnemyFarAway() {
-		sre = new ScannedRobotEvent("enemy", 100, 0, 100, 0, 20, false);
-		movementUT.setData(sre.getBearingRadians() + mockBot.getHeadingRadians(),
-				sre.getVelocity() * Math.sin(sre.getHeadingRadians() - (sre.getBearingRadians() + mockBot.getHeadingRadians())));
-		movementUT.move(sre);
-		assertTrue("Dagge is not moving in the correct direction", mockBot.getHeading() == sre.getBearing());
-
+	public void testWallHitEventHandling() {
+		movementUT.wallHit(new HitWallEvent(0));
+		
 	}
 
 }

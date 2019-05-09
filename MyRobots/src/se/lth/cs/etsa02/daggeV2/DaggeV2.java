@@ -20,7 +20,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * Configures radar and gun movement for more efficient while turning.
 	 */
-
+	@Override
 	public void run() {
 		targetingSystem = new TargetingSystem(this);
 		movementSystem = new MovementSystem(this, this.getBattleFieldWidth(), this.getBattleFieldHeight());
@@ -42,7 +42,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the ScannedRobotEvent
 	 */
-
+	@Override
 	public void onScannedRobot(ScannedRobotEvent e) {
 		if (scanSystem.Scan(e)) {
 			movementSystem.setData(targetingSystem.getAbsBearing(), targetingSystem.getLatVel());
@@ -58,7 +58,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the HitWallEvent
 	 */
-
+	@Override
 	public void onHitWall(HitWallEvent e) {
 		movementSystem.wallHit(e);
 	}
@@ -69,7 +69,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the HitRobotEvent
 	 */
-
+	@Override
 	public void onHitRobot(HitRobotEvent e) {
 		movementSystem.collision(e);
 	}
@@ -79,7 +79,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the WinEvent
 	 */
-
+	@Override
 	public void onWin(WinEvent e) {
 		movementSystem.win(e);
 	}
@@ -89,7 +89,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the MessageEvent
 	 */
-
+	@Override
 	public void onMessageReceived(MessageEvent e) {
 		if (e.getMessage() instanceof RobotColors) {
 			RobotColors c = (RobotColors) e.getMessage();
@@ -106,7 +106,7 @@ public class DaggeV2 extends TeamRobot {
 	 * 
 	 * @param e - the RobotDeathEvent
 	 */
-
+	@Override
 	public void onRobotDeath(RobotDeathEvent e) {
 		if (e.getName().equals(scanSystem.getCurrentTaret())) {
 			scanSystem.reset();
