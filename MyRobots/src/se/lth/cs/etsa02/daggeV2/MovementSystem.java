@@ -73,7 +73,9 @@ public class MovementSystem {
 		}
 
 		if (e.getDistance() > 220) {
-			if (stuck < 5 && e.getDistance() > 270) {
+			
+			if (stuck < 5 && e.getDistance() > 250) {
+				dagge.clearAllEvents();
 				moveDirection = 1;
 			}
 
@@ -95,7 +97,7 @@ public class MovementSystem {
 				left = 1;
 			}
 			if (left == 1 || right == 1 || up == 1 || down == 1) {
-				stuck ++;
+				stuck += 10;
 				
 				if (dagge.getHeadingRadians() < Math.PI / 2) {
 					dagge.setTurnRightRadians(right * (Math.PI / 2 - dagge.getHeadingRadians()));
@@ -127,17 +129,21 @@ public class MovementSystem {
 			} else {
 				
 				dagge.setTurnRightRadians(robocode.util.Utils
-						.normalRelativeAngle(absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
+						.normalRelativeAngle(Math.PI/10 - Math.random()*Math.PI/3 + absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
 				dagge.setAhead((e.getDistance() - 140) * moveDirection);
 				stuck--;
 			}
-		} else {
-		
-			//if (prevEnergy - e.getEnergy() >= 0.1 && e.getDistance() > 100 && Math.random() > 0.7) {
-			//	moveDirection = -moveDirection;
-			//}
+		} else if(e.getDistance() < 20) { 
+			dagge.setTurnRightRadians(robocode.util.Utils
+					.normalRelativeAngle(Math.PI/2*(e.getDistance()/70) + absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
+			dagge.setBack(50 -(e.getDistance()) * moveDirection);
+			
+		} else { 
+			if (prevEnergy - e.getEnergy() >= 0.1 && prevEnergy - e.getEnergy() <= 3 && e.getDistance() > 120 && Math.random() > 0.8) {
+				moveDirection = -moveDirection;
+			}
 			dagge.turnLeft(-90 - e.getBearing());
-			dagge.setAhead(Math.max((e.getDistance() - 140) / 2, 10) * moveDirection);
+			dagge.setAhead(Math.max((e.getDistance() - 140) / 2, 20) * moveDirection);
 			stuck--;
 		}
 
@@ -154,7 +160,7 @@ public class MovementSystem {
 
 	public void collision(HitRobotEvent e) { // Avoid collision
 		moveDirection = -moveDirection;
-		stuck++;
+		stuck += 12;
 	}
 
 	/**
@@ -166,7 +172,7 @@ public class MovementSystem {
 
 	public void wallHit(HitWallEvent e) { // Avoid walls
 		moveDirection = -moveDirection;
-		stuck++;
+		stuck += 8;
 	}
 
 	/**
@@ -180,5 +186,13 @@ public class MovementSystem {
 			dagge.turnLeft(30);
 		}
 	}
-
+	
+	/**
+	 * Resets the stuck parameter.
+	 */
+	public void setStuck() {
+		stuck = 0;
+	}
+	
+		
 }

@@ -2,12 +2,6 @@ package se.lth.cs.etsa02.systemTest;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import robocode.control.events.BattleCompletedEvent;
@@ -16,22 +10,21 @@ import robocode.control.events.RoundStartedEvent;
 import robocode.control.events.TurnEndedEvent;
 import robocode.control.snapshot.BulletState;
 import robocode.control.snapshot.IBulletSnapshot;
-import robocode.control.snapshot.IRobotSnapshot;
 import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 
 @RunWith(JUnit4.class)
 public class DodgeBullets_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
-	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2";
-	private String ENEMY_ROBOTS = "sample.TestTeam";
+	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
+	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperSample";
 	private int NBR_ROUNDS = 100;
-	private int nbrBullets = 0;
-	private int bulletHits = 0;
-	private Map<Integer, BulletState> bulletIDs = new HashMap<Integer, BulletState>();
-	private double THRESHOLD = 0;
+	private double hits = 0;
+	private double dodges = 0;
+	private int SIZE_X = 1200;
+	private int SIZE_Y = 1200;
 	private IBulletSnapshot[] tempBullets;
-	private Set<IBulletSnapshot> bullets = new HashSet<IBulletSnapshot>();
+	
 
 	/**
 	 * The names of the robots that want battling is specified.
@@ -123,14 +116,9 @@ public class DodgeBullets_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
-		Iterator<IBulletSnapshot> itr = bullets.iterator();
-		for (Map.Entry<Integer, BulletState> entry : bulletIDs.entrySet()) {
-			if (entry.getValue().name().equals("HIT_VICTIM") && (itr.next().getVictimIndex() <= 0 && itr.next().getVictimIndex() <= 4 )) {
-				bulletHits++;
-			}
-		}
-		assertTrue("Not good enough avoidance of bullets " + 100 * bulletHits / nbrBullets + "% " + nbrBullets + " "
-				+ bulletHits, 100 * bulletHits / nbrBullets < THRESHOLD);
+		System.out.println("Dodged " +  100*(dodges/(dodges+hits)) +"% of bullets.");
+		assertTrue("Not good enough avoidance of bullets " + hits/(dodges+hits),
+				dodges/(dodges+hits) > 0.65);
 	}
 
 	/**
@@ -163,9 +151,11 @@ public class DodgeBullets_STS extends RobotTestBed {
 	public void onTurnEnded(TurnEndedEvent event) {
 		tempBullets = event.getTurnSnapshot().getBullets();
 		for (IBulletSnapshot b : tempBullets) {
-				bulletIDs.put(b.getBulletId(), b.getState());
-				bullets.add(b);
+				if(b.getOwnerIndex() == 1 && b.getVictimIndex() == 0) {
+					hits++;
+				} else if (b.getOwnerIndex() == 1 && b.getState().equals(BulletState.HIT_WALL)) {
+					dodges++;
+				}
 		}
-		nbrBullets = bulletIDs.size();
 	}
 }

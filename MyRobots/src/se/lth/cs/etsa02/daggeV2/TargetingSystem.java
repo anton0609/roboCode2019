@@ -47,11 +47,11 @@ public class TargetingSystem {
 				
 		if (e.getDistance() >= 300) {
 			gunTurnAmt = robocode.util.Utils
-					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / (13*e.getDistance()/200));
+					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / (13*e.getDistance()/170));
 			dagge.setTurnGunRightRadians(gunTurnAmt);
 		} else if (e.getDistance() > 150 && e.getDistance() < 300) {
 			gunTurnAmt = robocode.util.Utils
-					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 13);
+					.normalRelativeAngle(absBearing - dagge.getGunHeadingRadians() + latVel / 14);
 			dagge.setTurnGunRightRadians(gunTurnAmt);
 
 		} else {

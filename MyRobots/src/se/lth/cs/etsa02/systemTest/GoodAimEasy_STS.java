@@ -1,4 +1,4 @@
-package SysTestGr3;
+package se.lth.cs.etsa02.systemTest;
 
 import static org.junit.Assert.assertTrue;
 
@@ -23,7 +23,7 @@ public class GoodAimEasy_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
-	private String ENEMY_ROBOTS = "sample.TrackFire";
+	private String ENEMY_ROBOTS = "sample.Tracker";
 	private int NBR_ROUNDS = 100;
 	private double hits = 0;
 	private double misses = 0;

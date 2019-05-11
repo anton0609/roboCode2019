@@ -24,7 +24,7 @@ public class DaggeV2 extends TeamRobot {
 	public void run() {
 		targetingSystem = new TargetingSystem(this);
 		movementSystem = new MovementSystem(this, this.getBattleFieldWidth(), this.getBattleFieldHeight());
-		scanSystem = new ScanSystem(this);
+		scanSystem = new ScanSystem(this, movementSystem);
 		setAdjustRadarForRobotTurn(true);
 		setAdjustGunForRobotTurn(true);
 

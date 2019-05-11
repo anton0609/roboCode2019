@@ -19,17 +19,16 @@ import robocode.control.snapshot.IRobotSnapshot;
 import se.lth.cs.etsa02.robocode.control.testing.RobotTestBed;
 
 @RunWith(JUnit4.class)
-public class GoodAim_STS extends RobotTestBed {
+public class GoodAimHard_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
-	private String ROBOT_UNDER_TEST = "group03.daggeV2.DaggeV2";
-	private String ENEMY_ROBOTS = "sample.Walls, sample.MyFirstRobot, sample.Crazy";
+	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
+	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperSample";
 	private int NBR_ROUNDS = 100;
-	private int nbrBullets = 0;
-	private int bulletHits = 0;
-	private Map<Integer, BulletState> bulletIDs = new HashMap<Integer, BulletState>();
-	private double THRESHOLD = 80;
-
+	private double hits = 0;
+	private double misses = 0;
+	private int SIZE_X = 1200;
+	private int SIZE_Y = 1200;
 	/**
 	 * The names of the robots that want battling is specified.
 	 * 
@@ -120,13 +119,8 @@ public class GoodAim_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
-		for (Map. Entry<Integer, BulletState> entry : bulletIDs. entrySet()) {
-			if (entry.getValue().name().equals("HIT_VICTIM")) {
-				bulletHits++;
-			}
-		}
-		assertTrue("Not good enough aim" + 100 * bulletHits / nbrBullets + "% " + nbrBullets + " "
-				+ bulletHits, 100 * bulletHits / nbrBullets > THRESHOLD);
+		assertTrue("Not good enough hitrate: " + 100 * hits / (hits + misses) + "% ", hits / (hits + misses) > 0.40);
+		System.out.println("hitrate: " + 100 * hits / (hits + misses) + "% ");
 	}
 
 	/**
@@ -159,10 +153,11 @@ public class GoodAim_STS extends RobotTestBed {
 	public void onTurnEnded(TurnEndedEvent event) {
 		IBulletSnapshot[] bullets = event.getTurnSnapshot().getBullets();
 		for (IBulletSnapshot b : bullets) {
-			if (b.getOwnerIndex() == 0) {
-				bulletIDs.put(b.getBulletId(), b.getState());
+			if (b.getOwnerIndex() == 0 && b.getVictimIndex() == 1) {
+				hits++;
+			} else if (b.getOwnerIndex() == 0 && b.getState().equals(BulletState.HIT_WALL)) {
+				misses++;
 			}
 		}
-		nbrBullets = bulletIDs.size();
 	}
 }

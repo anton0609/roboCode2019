@@ -8,9 +8,11 @@ public class ScanSystem {
 	
 	private TeamRobot dagge;
 	private String currentTarget;
+	private MovementSystem movementSystem;
 
-	public ScanSystem(TeamRobot dagge) {
+	public ScanSystem(TeamRobot dagge, MovementSystem movementSystem) {
 		this.dagge = dagge;
+		this.movementSystem = movementSystem;
 	}
 
 	/**
@@ -39,8 +41,10 @@ public class ScanSystem {
 
 	public void reset() {
 		currentTarget = null;
+		movementSystem.setStuck();
 	}
-
+	
+	
 	/**
 	 * Returns DaggeV2's current target.
 	 * 
