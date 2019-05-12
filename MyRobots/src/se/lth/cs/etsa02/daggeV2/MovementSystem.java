@@ -1,20 +1,14 @@
 
 package se.lth.cs.etsa02.daggeV2;
 
-
-
-
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 import robocode.WinEvent;
 
-
-//TODO implementera ett gravitationsmovement så att vi håller oss undan väggarna
-//TODO implementera ett bättra oscillerande mönster då vi rör oss mot fiendern
 public class MovementSystem {
-	
+
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
@@ -23,11 +17,8 @@ public class MovementSystem {
 	private double prevEnergy; // Used to keep track of targets energy level.
 	private double width;
 	private double height;
-	private double up;
-	private double down;
-	private double right;
-	private double left;
-	
+	private int turn;
+
 	/**
 	 * Constructor - links operating robot to this MovementSystem
 	 * 
@@ -72,77 +63,52 @@ public class MovementSystem {
 			dagge.setMaxVelocity((12 * Math.random()) + 36);
 		}
 
-		if (e.getDistance() > 220) {
-			
-			if (stuck < 5 && e.getDistance() > 250) {
-				dagge.clearAllEvents();
+		if (e.getDistance() > 270) {
+
+			if (stuck < 5 && e.getDistance() > 310) {
+
 				moveDirection = 1;
 			}
 
-			up = 0;
-			down = 0;
-			right = 0;
-			left = 0;
+			if (dagge.getY() <= 50 && dagge.getHeadingRadians() < 3 * Math.PI / 2
+					&& dagge.getHeadingRadians() >= Math.PI) {
+				turn = 1;
+				stuck++;
+			}
+			if (dagge.getY() >= height - 50 && dagge.getHeadingRadians() < Math.PI / 2) {
+				turn = 1;
+				stuck++;
+			}
+			if (dagge.getX() <= 50 && dagge.getHeadingRadians() >= 3 * Math.PI / 2) {
+				turn = 1;
+				stuck++;
+			}
+			if (dagge.getX() >= width - 50 && dagge.getHeadingRadians() >= Math.PI / 2
+					&& dagge.getHeadingRadians() < Math.PI) {
+				turn = 1;
+				stuck++;
+			}
 
-			if (dagge.getY() <= 20) {
-				up = 1;
-			}
-			if (dagge.getY() >= height - 20) {
-				down = 1;
-			}
-			if (dagge.getX() <= 20) {
-				right = 1;
-			}
-			if (dagge.getX() >= width - 20) {
-				left = 1;
-			}
-			if (left == 1 || right == 1 || up == 1 || down == 1) {
-				stuck += 10;
-				
-				if (dagge.getHeadingRadians() < Math.PI / 2) {
-					dagge.setTurnRightRadians(right * (Math.PI / 2 - dagge.getHeadingRadians()));
-					dagge.setTurnLeftRadians(up * (dagge.getHeadingRadians()));
-					dagge.setTurnRightRadians(down * (Math.PI / 2 - dagge.getHeadingRadians()));
-					dagge.setTurnLeftRadians(left * (dagge.getHeadingRadians() + Math.PI / 2));
-				} else
-				if (dagge.getHeadingRadians() >= 3 * Math.PI / 2) {
-					dagge.setTurnRightRadians(right * (2 * Math.PI - dagge.getHeadingRadians() + Math.PI / 2));
-					dagge.setTurnLeftRadians(left * (Math.PI / 2 - (dagge.getHeadingRadians() - 2 * Math.PI)));
-					dagge.setTurnRightRadians(up * (2 * Math.PI - dagge.getHeadingRadians()));
-					dagge.setTurnLeftRadians(down * (dagge.getHeadingRadians() - Math.PI));
-				} else
-				if (dagge.getHeadingRadians() >= Math.PI / 2 && dagge.getHeadingRadians() < Math.PI) {
-					dagge.setTurnLeftRadians(right * (dagge.getHeadingRadians() - Math.PI / 2));
-					dagge.setTurnRightRadians(left * (Math.PI - dagge.getHeadingRadians() + Math.PI / 2));
-					dagge.setTurnLeftRadians(up * (dagge.getHeadingRadians()));
-					dagge.setTurnRightRadians(down * (Math.PI - dagge.getHeadingRadians()));
-				} else
-				if (dagge.getHeadingRadians() < 3 * Math.PI / 2 && dagge.getHeadingRadians() >= Math.PI) {
-					dagge.setTurnLeftRadians(right * (dagge.getHeadingRadians() - Math.PI / 2));
-					dagge.setTurnRightRadians(left * (Math.PI - dagge.getHeadingRadians() + Math.PI / 2));
-					dagge.setTurnRightRadians(up * (2 * Math.PI - dagge.getHeadingRadians()));
-					dagge.setTurnLeftRadians(down * (dagge.getHeadingRadians() - Math.PI));
-				}
-				dagge.ahead(20*moveDirection);
-				dagge.execute();
-				
-			} else {
-				
-				dagge.setTurnRightRadians(robocode.util.Utils
-						.normalRelativeAngle(Math.PI/10 - Math.random()*Math.PI/3 + absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
-				dagge.setAhead((e.getDistance() - 140) * moveDirection);
-				stuck--;
-			}
-		} else if(e.getDistance() < 20) { 
-			dagge.setTurnRightRadians(robocode.util.Utils
-					.normalRelativeAngle(Math.PI/2*(e.getDistance()/70) + absBearing - dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
-			dagge.setBack(50 -(e.getDistance()) * moveDirection);
-			
-		} else { 
-			if (prevEnergy - e.getEnergy() >= 0.1 && prevEnergy - e.getEnergy() <= 3 && e.getDistance() > 120 && Math.random() > 0.8) {
+			dagge.setTurnRightRadians(
+					robocode.util.Utils.normalRelativeAngle((1 - turn) * (Math.PI / 10 - Math.random() * Math.PI / 3)
+							+ turn * (-Math.PI / 10 + Math.random() * Math.PI / 3) + absBearing
+							- dagge.getHeadingRadians() + latVel / dagge.getVelocity()));
+			dagge.setAhead((e.getDistance() - 140) * moveDirection);
+			stuck--;
+
+		} else if (e.getDistance() < 100) {
+
+			dagge.setTurnRightRadians(robocode.util.Utils.normalRelativeAngle(
+					Math.PI / 2 * (e.getDistance() / 50) + absBearing - dagge.getHeadingRadians()));
+			dagge.setBack(50 - (e.getDistance()) * moveDirection);
+
+		} else {
+			if (prevEnergy - e.getEnergy() >= 0.1 && prevEnergy - e.getEnergy() <= 3 && e.getDistance() > 120
+					&& Math.random() > 0.8) {
 				moveDirection = -moveDirection;
 			}
-			dagge.turnLeft(-90 - e.getBearing());
+
+			dagge.setTurnLeft(-90 - e.getBearing());
 			dagge.setAhead(Math.max((e.getDistance() - 140) / 2, 20) * moveDirection);
 			stuck--;
 		}
@@ -186,13 +152,12 @@ public class MovementSystem {
 			dagge.turnLeft(30);
 		}
 	}
-	
+
 	/**
 	 * Resets the stuck parameter.
 	 */
 	public void setStuck() {
 		stuck = 0;
 	}
-	
-		
+
 }

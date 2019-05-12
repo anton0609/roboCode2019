@@ -1,11 +1,10 @@
 package se.lth.cs.etsa02.daggeV2;
 
-
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
 
 public class ScanSystem {
-	
+
 	private TeamRobot dagge;
 	private String currentTarget;
 	private MovementSystem movementSystem;
@@ -16,22 +15,21 @@ public class ScanSystem {
 	}
 
 	/**
-	 * Initially picks a target closest to DaggeV2. Then makes sure that DaggeV2
-	 * stays on this target.
+	 * Checks if the robot is 
 	 * 
-	 * @param e - the ScannedRobotEvent
-	 * @return the proper ScannedRobotEvent
+	 * @param e
+	 *            - the ScannedRobotEvent
+	 * @return true if the scanned robot is an enemy and the current target if there is one
 	 */
 
-	public boolean Scan(ScannedRobotEvent e) {
-		
-		if(currentTarget == null && !dagge.isTeammate(e.getName())) {
-		currentTarget = e.getName();
-		}
-		
-		if (!e.getName().equals(currentTarget)) {
+	public boolean scan(ScannedRobotEvent e) {
+
+		if (currentTarget == null && !dagge.isTeammate(e.getName())) {
+			currentTarget = e.getName();
+			return true;
+		} else if (!e.getName().equals(currentTarget)) {
 			return false;
-		} 
+		}
 		return true;
 	}
 
@@ -51,7 +49,8 @@ public class ScanSystem {
 	 * @return currentTarget
 	 */
 
-	public String getCurrentTaret() {
+	public String getCurrentTarget() {
 		return currentTarget;
 	}
+
 }

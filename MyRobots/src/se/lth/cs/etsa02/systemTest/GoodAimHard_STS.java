@@ -23,7 +23,7 @@ public class GoodAimHard_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
-	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperSample";
+	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperMercutio";
 	private int NBR_ROUNDS = 100;
 	private double hits = 0;
 	private double misses = 0;
@@ -119,7 +119,7 @@ public class GoodAimHard_STS extends RobotTestBed {
 	 */
 	@Override
 	public void onBattleCompleted(BattleCompletedEvent event) {
-		assertTrue("Not good enough hitrate: " + 100 * hits / (hits + misses) + "% ", hits / (hits + misses) > 0.40);
+		assertTrue("Not good enough hitrate: " + 100 * hits / (hits + misses) + "% ", hits / (hits + misses) > 0.35);
 		System.out.println("hitrate: " + 100 * hits / (hits + misses) + "% ");
 	}
 

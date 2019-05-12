@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({/**MovementSystemTest.class*/ TargetingSystemTest.class})
+@SuiteClasses({MovementSystemTest.class, TargetingSystemTest.class, ScanSystemTest.class})
 public class DaggeUnitTestSuite {
 
 }

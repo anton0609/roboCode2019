@@ -16,12 +16,13 @@ public class AntiCollision_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
 		private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
-		private String ENEMY_ROBOTS = "sample.Crazy";
+		private String ENEMY_ROBOTS = "sample.Crazy, sample.Crazy, sample.Crazy, sample.Crazy";
 		private int NBR_ROUNDS = 100;
 		private double collisions = 0;// number of "collisions" as defined by being arbitrarily close to enemies or walls
 		private double turns = 0;
 		private int SIZE_X = 1200;
 		private int SIZE_Y = 1200;
+		private double turn;
 		
 		/**
 		 * The names of the robots that want battling is specified.
@@ -116,6 +117,7 @@ public class AntiCollision_STS extends RobotTestBed {
 		@Override
 		public void onBattleCompleted(BattleCompletedEvent event) {
 			System.out.println(collisions/turns);
+			System.out.println(turn);
 			assertTrue("Not good enough avoidance of robots " + collisions/turns, collisions/turns < 0.03);
 		}
 		
@@ -155,6 +157,7 @@ public class AntiCollision_STS extends RobotTestBed {
 				collisions++;
 			}
 			turns++;
+			turn = event.getTurnSnapshot().getTurn();
 		}
 
 }
