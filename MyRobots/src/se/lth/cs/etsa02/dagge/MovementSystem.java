@@ -8,12 +8,13 @@ import robocode.TeamRobot;
 import robocode.WinEvent;
 
 public class MovementSystem {
- 
+
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
 	private int stuck = 0;
-	private double moveDirection = 1; // Used to provide the ability to easily invert move direction.
+	private double moveDirection = 1; // Used to provide the ability to easily
+										// invert move direction.
 	private double prevEnergy; // Used to keep track of targets energy level.
 	private double width;
 	private double height;
@@ -22,8 +23,12 @@ public class MovementSystem {
 	/**
 	 * Constructor - links operating robot to this MovementSystem
 	 * 
-	 * @param dagge             - The operating robot
-	 * @param positioningSystem - the positioningSystem
+	 * @param dagge
+	 *            the robot using this movement system
+	 * @param width
+	 *            the width of the arena
+	 * @param height
+	 *            the height of the arena
 	 */
 
 	public MovementSystem(TeamRobot dagge, Double width, Double height) {
@@ -35,8 +40,10 @@ public class MovementSystem {
 	/**
 	 * Provides ability to input values for parameters absBearing and latVel.
 	 * 
-	 * @param absBearing - Short for absolute bearing.
-	 * @param latVel     - Short for later velocity.
+	 * @param absBearing
+	 *            - Short for absolute bearing.
+	 * @param latVel
+	 *            - Short for later velocity.
 	 */
 
 	public void setData(double absBearing, double latVel) {
@@ -46,13 +53,14 @@ public class MovementSystem {
 
 	/**
 	 * Specifies movement related action to be made in the event of detecting
-	 * another robot with the radar. Moves into optimal range if farther away. Makes
-	 * movement slightly less predictable by randomly changing speed. Strafes
-	 * circularly and with perpendicular bearing around the target when in range.
-	 * Also enables countermeasures for collisions and predicted incoming enemy
-	 * fire.
+	 * another robot with the radar. Moves into optimal range if farther away.
+	 * Makes movement slightly less predictable by randomly changing speed.
+	 * Strafes circularly and with perpendicular bearing around the target when
+	 * in range. Also enables countermeasures for collisions and predicted
+	 * incoming enemy fire.
 	 * 
-	 * @param e - the ScannedRobotEvent
+	 * @param e
+	 *            - the ScannedRobotEvent
 	 */
 
 	public void move(ScannedRobotEvent e) {
@@ -118,10 +126,11 @@ public class MovementSystem {
 	}
 
 	/**
-	 * Changes move direction for a few turns which allows for moving out of melee
-	 * range.
+	 * Changes move direction for a few turns which allows for moving out of
+	 * melee range.
 	 * 
-	 * @param e - The HitRobotEvent
+	 * @param e
+	 *            - The HitRobotEvent
 	 */
 
 	public void collision(HitRobotEvent e) { // Avoid collision
@@ -133,7 +142,8 @@ public class MovementSystem {
 	 * Changes move direction for a few turns which allows for moving away from
 	 * wall.
 	 * 
-	 * @param e - The HitWallEvent
+	 * @param e
+	 *            - The HitWallEvent
 	 */
 
 	public void wallHit(HitWallEvent e) { // Avoid walls
@@ -144,7 +154,8 @@ public class MovementSystem {
 	/**
 	 * Makes a series of quick turns which simulates a dance.
 	 * 
-	 * @param e - The WinEvent
+	 * @param e
+	 *            - The WinEvent
 	 */
 	public void win(WinEvent e) {
 		for (int i = 0; i < 50; i++) {
@@ -159,6 +170,7 @@ public class MovementSystem {
 	public void setStuck() {
 		stuck = 0;
 	}
+
 	/**
 	 * 
 	 * @return the current movement direction
@@ -168,7 +180,7 @@ public class MovementSystem {
 	}
 
 	public Double[] getData() {
-		return new Double[] {absBearing, latVel};
+		return new Double[] { absBearing, latVel };
 	}
 
 }
