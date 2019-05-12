@@ -23,7 +23,7 @@ public class GoodAimHard_STS extends RobotTestBed {
 
 	// constants used to configure this system test case
 	private String ROBOT_UNDER_TEST = "se.lth.cs.etsa02.daggeV2.DaggeV2";
-	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperMercutio";
+	private String ENEMY_ROBOTS = "se.lth.cs.etsa02.basicmeleebot.SuperSample";
 	private int NBR_ROUNDS = 100;
 	private double hits = 0;
 	private double misses = 0;

@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ AntiCollision_STS.class, DodgeBullets_STS.class, GoodAimEasy_STS.class, GoodAimHard_STS.class, })
+@SuiteClasses({ AntiCollision_STS.class, DodgeBullets_STS.class, GoodAimEasy_STS.class, GoodAimHard_STS.class, StalkPrey_STS.class})
 public class DaggeSystemTestSuite {
 
 }
