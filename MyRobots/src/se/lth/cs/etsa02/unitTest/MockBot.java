@@ -24,14 +24,14 @@ SOFTWARE.
 package se.lth.cs.etsa02.unitTest;
 
 import robocode.TeamRobot;
-import se.lth.cs.etsa02.daggeV2.DaggeV2;
+import se.lth.cs.etsa02.dagge.Dagge;
 
 /**
  * MockBot - a mock robot to enable unit testing for ETSA02.
  *
  * @author Markus Borg
  */
-public class MockBot extends DaggeV2 {
+public class MockBot extends Dagge {
 	
 	private String name;
 	private double fakeEnergy;

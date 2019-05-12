@@ -1,5 +1,5 @@
 
-package se.lth.cs.etsa02.daggeV2;
+package se.lth.cs.etsa02.dagge;
 
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;

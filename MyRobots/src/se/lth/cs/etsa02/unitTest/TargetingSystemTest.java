@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.lth.cs.etsa02.daggeV2.TargetingSystem;
+import se.lth.cs.etsa02.dagge.TargetingSystem;
 
 public class TargetingSystemTest {
 	private MockBot mockBot;
@@ -14,7 +14,7 @@ public class TargetingSystemTest {
 	private MockScannedRobotEvent mockSRE;
 	@Before
 	public void setUp(){
-		mockBot = new MockBot("DaggeV2", 100, Math.PI, 0, 0);
+		mockBot = new MockBot("Dagge", 100, Math.PI, 0, 0);
 		targetingUT = new TargetingSystem(mockBot);
 		
 	}

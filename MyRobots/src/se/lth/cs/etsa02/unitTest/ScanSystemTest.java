@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import se.lth.cs.etsa02.daggeV2.MovementSystem;
-import se.lth.cs.etsa02.daggeV2.ScanSystem;
+import se.lth.cs.etsa02.dagge.MovementSystem;
+import se.lth.cs.etsa02.dagge.ScanSystem;
 
 public class ScanSystemTest {
 	private ScanSystem scanUT;

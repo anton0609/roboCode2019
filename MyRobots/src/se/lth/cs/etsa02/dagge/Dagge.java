@@ -1,4 +1,4 @@
-package se.lth.cs.etsa02.daggeV2;
+package se.lth.cs.etsa02.dagge;
 
 import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
@@ -9,14 +9,14 @@ import robocode.TeamRobot;
 import robocode.WinEvent;
 import se.lth.cs.etsa02.RobotColors;
 
-public class DaggeV2 extends TeamRobot {
+public class Dagge extends TeamRobot {
 
 	private TargetingSystem targetingSystem;
 	private MovementSystem movementSystem;
 	private ScanSystem scanSystem;
 
 	/**
-	 * Specifies basic configurations for DaggeV2 during the game.
+	 * Specifies basic configurations for Dagge during the game.
 	 * 
 	 * Configures radar and gun movement for more efficient while turning.
 	 */
@@ -63,7 +63,7 @@ public class DaggeV2 extends TeamRobot {
 
 	/**
 	 * Specifies the actions to be made when collision with another robot
-	 * occurs. Makes sure DaggeV2 move away from the robot collided with.
+	 * occurs. Makes sure Dagge move away from the robot collided with.
 	 * 
 	 * @param e
 	 *            - the HitRobotEvent
@@ -74,7 +74,7 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies what celebration DaggeV2 does when he wins. Makes a neat dance.
+	 * Specifies what celebration Dagge does when he wins. Makes a neat dance.
 	 * 
 	 * @param e
 	 *            - the WinEvent
@@ -85,7 +85,7 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Specifies how DaggeV2 receives coloring specification from a Leader.
+	 * Specifies how Dagge receives coloring specification from a Leader.
 	 * 
 	 * @param e
 	 *            - the MessageEvent
@@ -103,7 +103,7 @@ public class DaggeV2 extends TeamRobot {
 	}
 
 	/**
-	 * Allows DaggeV2 to change target after making a kill.
+	 * Allows Dagge to change target after making a kill.
 	 * 
 	 * @param e
 	 *            - the RobotDeathEvent

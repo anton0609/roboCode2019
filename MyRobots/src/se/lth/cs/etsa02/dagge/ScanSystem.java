@@ -1,4 +1,4 @@
-package se.lth.cs.etsa02.daggeV2;
+package se.lth.cs.etsa02.dagge;
 
 import robocode.ScannedRobotEvent;
 import robocode.TeamRobot;
@@ -34,7 +34,7 @@ public class ScanSystem {
 	}
 
 	/**
-	 * Resets the target for DaggeV2.
+	 * Resets the target for Dagge.
 	 */
 
 	public void reset() {
@@ -44,7 +44,7 @@ public class ScanSystem {
 	
 	
 	/**
-	 * Returns DaggeV2's current target.
+	 * Returns Dagge's current target.
 	 * 
 	 * @return currentTarget
 	 */

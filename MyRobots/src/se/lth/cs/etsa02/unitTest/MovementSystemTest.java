@@ -10,8 +10,8 @@ import robocode.HitRobotEvent;
 import robocode.HitWallEvent;
 import robocode.ScannedRobotEvent;
 import robocode.WinEvent;
-import se.lth.cs.etsa02.daggeV2.MovementSystem;
-import se.lth.cs.etsa02.daggeV2.ScanSystem;
+import se.lth.cs.etsa02.dagge.MovementSystem;
+import se.lth.cs.etsa02.dagge.ScanSystem;
 
 public class MovementSystemTest {
 
@@ -22,7 +22,7 @@ public class MovementSystemTest {
 
 	@Before
 	public void setUp() {
-		mockBot = new MockBot("DaggeV2", 100, Math.PI, 100, 100);
+		mockBot = new MockBot("Dagge", 100, Math.PI, 100, 100);
 		movementUT = new MovementSystem(mockBot, (double) 1200, (double) 1200);
 	}
 
