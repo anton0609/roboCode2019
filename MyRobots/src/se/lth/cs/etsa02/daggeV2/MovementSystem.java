@@ -8,7 +8,7 @@ import robocode.TeamRobot;
 import robocode.WinEvent;
 
 public class MovementSystem {
-
+ 
 	private double absBearing;
 	private double latVel;
 	private TeamRobot dagge;
@@ -158,6 +158,17 @@ public class MovementSystem {
 	 */
 	public void setStuck() {
 		stuck = 0;
+	}
+	/**
+	 * 
+	 * @return the current movement direction
+	 */
+	public double getMoveDirection() {
+		return moveDirection;
+	}
+
+	public Double[] getData() {
+		return new Double[] {absBearing, latVel};
 	}
 
 }

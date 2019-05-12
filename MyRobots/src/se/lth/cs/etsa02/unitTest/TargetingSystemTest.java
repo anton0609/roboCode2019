@@ -28,12 +28,12 @@ public class TargetingSystemTest {
 
 	@Test
 	public void testFireAtEnemyFarAway() {
-		mockSRE = new MockScannedRobotEvent(null, 100, 0, 450, 0, 20, false );
+		mockSRE = new MockScannedRobotEvent(null, 100, 0, 550, 0, 20, false );
 		assertTrue("Fired when the target was to far away",!targetingUT.fire(mockSRE));
 	}
 	@Test
 	public void testFireAtEnemyMidDistance() {
-		mockSRE = new MockScannedRobotEvent(null, 100, 0, 250, 0, 20, false );
+		mockSRE = new MockScannedRobotEvent(null, 100, 0, 251, 0, 20, false );
 		assertTrue("Did not fire when supposed to",targetingUT.fire(mockSRE));
 	}
 	
