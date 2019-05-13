@@ -15,11 +15,11 @@ public class ScanSystem {
 	}
 
 	/**
-	 * Checks if the robot is 
+	 * Checks if the robot is eligible for targeting.
 	 * 
 	 * @param e
 	 *            - the ScannedRobotEvent
-	 * @return true if the scanned robot is an enemy and the current target if there is one
+	 * @return true if the scanned robot is an enemy and also the chosen current target if there is one.
 	 */
 
 	public boolean scan(ScannedRobotEvent e) {

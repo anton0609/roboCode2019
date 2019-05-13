@@ -8,7 +8,7 @@ public class TargetingSystem {
 
 	private TeamRobot dagge;
 	private double absBearing; // Short for absolute bearing.
-	private double latVel;	// Short for later velocity
+	private double latVel;	// Short for lateral velocity
 	
 	
 	
